@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15" version="24.8.3">
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36" version="24.8.3">
   <diagram name="Strona-1" id="YkNLyQOiiEnR4pAY-5_M">
-    <mxGraphModel dx="938" dy="557" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="1167" dy="580" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -78,7 +78,7 @@
             <mxPoint x="379" y="195" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="-qYb1R1Cxw7pIMBzL6vs-1" value="REST" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Lt-CNJx7c87EkmYnbsUR-10">
+        <mxCell id="-qYb1R1Cxw7pIMBzL6vs-1" value="REST" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="Lt-CNJx7c87EkmYnbsUR-10" vertex="1" connectable="0">
           <mxGeometry x="0.0524" y="-3" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
@@ -86,7 +86,7 @@
         <mxCell id="XOLkhWDoxnP9P8J1GMW6-15" value="Data Processer Service&lt;div&gt;(Python)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="324" y="240" width="110" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="XOLkhWDoxnP9P8J1GMW6-18" value="ElasticSearch&lt;div&gt;(NoSQL)&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
+        <mxCell id="XOLkhWDoxnP9P8J1GMW6-18" value="ELK" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="594" y="410" width="115" height="110" as="geometry" />
         </mxCell>
         <mxCell id="XOLkhWDoxnP9P8J1GMW6-19" value="Data Storage&lt;div&gt;Service&lt;/div&gt;&lt;div&gt;(Spring)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
