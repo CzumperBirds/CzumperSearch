@@ -62,7 +62,7 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XOLkhWDoxnP9P8J1GMW6-12" value="Data Collection Service&lt;div&gt;(Python kafka producer)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
+        <mxCell id="XOLkhWDoxnP9P8J1GMW6-12" value="Data Collection Service&lt;div&gt;(Python)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="150" y="235" width="110" height="110" as="geometry" />
         </mxCell>
         <mxCell id="Lt-CNJx7c87EkmYnbsUR-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="XOLkhWDoxnP9P8J1GMW6-15" target="XOLkhWDoxnP9P8J1GMW6-19">
@@ -73,13 +73,18 @@
             <mxPoint x="-12" as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="XOLkhWDoxnP9P8J1GMW6-15" value="Data Processer Service&lt;div&gt;(Python + ollama middle man)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
+        <mxCell id="Lt-CNJx7c87EkmYnbsUR-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;startArrow=classic;startFill=1;" edge="1" parent="1" source="XOLkhWDoxnP9P8J1GMW6-15">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="405" y="190" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="XOLkhWDoxnP9P8J1GMW6-15" value="Data Processer Service&lt;div&gt;(Python)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="350" y="235" width="110" height="110" as="geometry" />
         </mxCell>
         <mxCell id="XOLkhWDoxnP9P8J1GMW6-18" value="ElasticSearch&lt;div&gt;(NoSQL)&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="620" y="405" width="115" height="110" as="geometry" />
         </mxCell>
-        <mxCell id="XOLkhWDoxnP9P8J1GMW6-19" value="Data Storage&lt;div&gt;Service&lt;/div&gt;&lt;div&gt;(Spring kafka consumer)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
+        <mxCell id="XOLkhWDoxnP9P8J1GMW6-19" value="Data Storage&lt;div&gt;Service&lt;/div&gt;&lt;div&gt;(Spring)&lt;/div&gt;" style="whiteSpace=wrap;html=1;aspect=fixed;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
           <mxGeometry x="570" y="235" width="110" height="110" as="geometry" />
         </mxCell>
         <mxCell id="XOLkhWDoxnP9P8J1GMW6-26" value="Redis" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;strokeColor=#DDA15E;fontColor=#FEFAE0;fillColor=#BC6C25;" parent="1" vertex="1">
@@ -203,6 +208,9 @@
           <mxGeometry x="-0.3253" y="-2" relative="1" as="geometry">
             <mxPoint as="offset" />
           </mxGeometry>
+        </mxCell>
+        <mxCell id="Lt-CNJx7c87EkmYnbsUR-11" value="AI&lt;div&gt;(Ollama/Openai API)&lt;/div&gt;" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="85" width="165" height="110" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
