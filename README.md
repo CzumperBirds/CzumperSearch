@@ -5,3 +5,4 @@
 - Artur Kempiński
 - Mateusz Matuczkiewicz
 - Kacper Multan
+- Jakub Kryczka
