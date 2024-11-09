@@ -1,8 +1,8 @@
 # CzumperSearch
 
 ## Authors
-- Oliwier Szypczyn
+- Oliwier Szybczyn
 - Artur Kępiński
 - Mateusz Matuczkiewicz
-- Kacpir Multan
-- Jakub Kryczka
+- Kacpir Móltan
+- Jakub Gryczka
