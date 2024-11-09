@@ -1,9 +1,101 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.1 Safari/605.1.15" version="24.8.3">
   <diagram name="Strona-1" id="0rxzClErRg4FRIJjoY4H">
-    <mxGraphModel>
+    <mxGraphModel dx="1104" dy="622" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-7" target="hI-XZIwANa7J9hPfzNEB-33">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="530" y="298" as="sourcePoint" />
+            <mxPoint x="600" y="340" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="490" y="288" />
+              <mxPoint x="660" y="288" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-37" value="Not passed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hI-XZIwANa7J9hPfzNEB-29">
+          <mxGeometry x="-0.3573" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-7" target="hI-XZIwANa7J9hPfzNEB-25">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-32" value="Passed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hI-XZIwANa7J9hPfzNEB-31">
+          <mxGeometry x="-0.0765" y="2" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-7" value="(Merge gate)&lt;div&gt;Workflow 2:&lt;br&gt;&lt;div&gt;Running E2E test/tests&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="250" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-6" target="hI-XZIwANa7J9hPfzNEB-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-22" value="Passed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hI-XZIwANa7J9hPfzNEB-21">
+          <mxGeometry x="-0.0706" y="-4" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-35" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-6" target="hI-XZIwANa7J9hPfzNEB-33">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="560" y="405" />
+              <mxPoint x="560" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-38" value="Not passed" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hI-XZIwANa7J9hPfzNEB-35">
+          <mxGeometry x="-0.2062" y="-1" relative="1" as="geometry">
+            <mxPoint x="6" y="-1" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-6" value="(Merge gate)&lt;div&gt;Workflow 1:&lt;br&gt;&lt;div&gt;Running tests of every service with changes&lt;/div&gt;&lt;/div&gt;" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="340" y="370" width="160" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-9" target="hI-XZIwANa7J9hPfzNEB-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-9" value="PR opened" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="580" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-1" target="hI-XZIwANa7J9hPfzNEB-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-1" value="New commit" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="670" width="120" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-14" target="hI-XZIwANa7J9hPfzNEB-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-14" value="PR blocked from merge" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="480" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-25">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="419.52941176470586" y="99.99999999999989" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-27" value="Merge" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="hI-XZIwANa7J9hPfzNEB-26">
+          <mxGeometry x="-0.0336" y="3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-25" value="PR merge block unlocked" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="140" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-28" value="Commit on main" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="360" y="40" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="hI-XZIwANa7J9hPfzNEB-33" target="hI-XZIwANa7J9hPfzNEB-14">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="659.5294117647059" y="510" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hI-XZIwANa7J9hPfzNEB-33" value="New commit with changes" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="600" y="370" width="120" height="60" as="geometry" />
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
