@@ -2,7 +2,7 @@
 
 ## Authors
 - Oliwier Szypczyn
-- Artur Kempiński
+- Artur Kępiński
 - Mateusz Matuczkiewicz
-- Kacper Multan
+- Kacpir Multan
 - Jakub Kryczka
