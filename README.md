@@ -4,5 +4,5 @@
 - Oliwier Szybczyn
 - Artur Kępiński
 - Mateusz Matuczkiewicz
-- Kacpir Multan
+- Kacpir Móltan
 - Jakub Gryczka
