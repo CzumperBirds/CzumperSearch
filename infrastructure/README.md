@@ -20,7 +20,7 @@ This folder contains Docker Compose configurations for different environments in
 1. **Launch the development environment**:
 
    ```bash
-   docker-compose -f docker-compose.dev.yml up
+   docker-compose -f docker-compose.dev.yml up -d
    ```
 
 2. **Stop the environment** when you're done:
