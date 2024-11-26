@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "src"
+version = "0.1.0"
+description = ""
+authors = ["Oliwier Szypczyn <oli.szypczyn@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+requests = "^2.32.3"
+kafka-python = "^2.0.2"
+six = "^1.16.0"
+kafka-python-ng = "^2.2.3"
+python-decouple = "^3.8"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pylint]
+disable = ["E0401"]
+
+[tool.black]
+line-length = 100
+
+[tool.poetry.scripts]
+data-collection = "src.app:main"
