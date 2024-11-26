@@ -1,6 +1,6 @@
 services:
   kafka:
-    image: confluentinc/cp-kafka:7.1.1
+    image: confluentinc/cp-kafka:latest
     hostname: kafka
     container_name: kafka
     environment:
