@@ -1,7 +1,6 @@
 """This module contains the function to produce jokes to Kafka."""
 
 import json
-import time
 from kafka import KafkaProducer
 from decouple import config
 from src.context.joke_context_manager import joke_response_manager
