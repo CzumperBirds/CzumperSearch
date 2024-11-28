@@ -1,34 +1,43 @@
 from kafka import KafkaConsumer
 from elasticsearch import Elasticsearch
 import json
-print("START FILE")
+print("START FILE\n")
+
+import time
+
+def wait_for_kafka(consumer, retries=1, delay=5):
+    for _ in range(retries):
+        try:
+            consumer.poll(timeout_ms=1000)  # Check if Kafka is available
+            return True
+        except Exception as e:
+            print(f"Waiting for Kafka... Error: {e}")
+            time.sleep(delay)
+    return False
 
 
-es = Elasticsearch(['http://elasticsearch:9200'])  # Elasticsearch service inside the Docker network
-print("1")
 
 consumer = KafkaConsumer(
-    'piwo_woda_polibuda',
-    bootstrap_servers=['kafka:9092'],
-    auto_offset_reset='earliest',
+    'piwo',
+    bootstrap_servers='kafka:9092',
+    # auto_offset_reset='earliest',
     enable_auto_commit=True,
     group_id='data-storage-service-group',
+    value_deserializer=lambda x: json.loads(x.decode('utf-8')),
+    key_deserializer=lambda x: x.decode('utf-8')
 
 )
 
-# if __name__ == '__main__':
-print("Data Storage Service started")
-try:
-    print("TRY")
+if wait_for_kafka(consumer):
+    print("Connected to Kafka")
+    idx = 0
     for message in consumer:
-        print("Message")
-#             record = json.loads(message.value.decode('utf-8'))
-#             print(f"Received message: {record}")
-except Exception as e:
-    print(f"Error: {e}")
-#     # Insert into Elasticsearch
-#     es.index(index='your_index_name', document=record)
-#     print(f"Inserted record into Elasticsearch: {record}")
-finally:
-    consumer.close()
-    print("Data Storage Service stopped")
+        print("Message key:", message.key)
+        print("Message value:", message.value)
+        if idx == 2:
+            consumer.close()
+        idx +=1
+   
+else:
+    print("Failed to connect to Kafka")
+
