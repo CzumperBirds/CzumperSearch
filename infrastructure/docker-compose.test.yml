@@ -38,7 +38,6 @@ services:
     networks:
       - traefik-public
       - kafka-test
-    restart: always
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.kafka-ui-test.rule=Host(`kafka-test.czumpers.com`)"

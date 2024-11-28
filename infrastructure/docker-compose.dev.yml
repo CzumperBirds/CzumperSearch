@@ -36,7 +36,6 @@ services:
       - kafka
     networks:
       - kafka
-    restart: always
 
 networks:
   kafka:
