@@ -7,6 +7,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN pip install --no-cache poetry==1.8.4
 
+ENV PYTHONPATH=/app:/app/src:$PYTHONPATH
+
+
 WORKDIR /app
 
 COPY pyproject.toml poetry.lock* /app/

@@ -1,5 +1,5 @@
 from kafka import KafkaConsumer, TopicPartition
-from elasticsearch import Elasticsearch
+from elastic_handler import ElasticsearchHandler
 import json
 import time
 
@@ -57,9 +57,7 @@ class KafkaHandler:
         
         if self.wait_for_kafka(self.consumer):
             print("Connected to Kafka.")
-            self.consumer.subscribe([self.topic])
-            self.consumer.seek_to_beginning()
-            print(f"Subscribed to topic: {self.consumer.subscription()}")
+            self.read_from_begining()
             
             idx = 0
             for message in self.consumer:
@@ -102,21 +100,27 @@ def main():
     topic = 'piwo'
     bootstrap_servers = 'kafka:9092'
     group_id = 'data-storage-service-group'
+    elasticsearch_url = "http://elasticsearch:9200"
     
     kafka_handler = KafkaHandler(topic, bootstrap_servers, group_id)
     
+    es_handler = ElasticsearchHandler(elasticsearch_url)
+
     kafka_handler.setup_consumer(
         value_deserializer=lambda x: json.loads(x.decode('utf-8')),
         key_deserializer=lambda x: x.decode('utf-8')
     )
     
     print("Consuming messages:")
+    
     for message in kafka_handler.consume_messages(max_messages=3):
-        print(message)
-
+        print(f"Consuming message: {message}")
+        
+        es_response = es_handler.index_message(message)
+        print(f"Indexed to Elasticsearch: {es_response}")
+    
     kafka_handler.close_consumer()
 
-    
 if __name__ == "__main__":
     print("START FILE\n")
     main()
