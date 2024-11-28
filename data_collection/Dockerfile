@@ -15,7 +15,7 @@ WORKDIR /app
 # Copy Poetry files first (to leverage Docker cache)
 COPY pyproject.toml poetry.lock* /app/
 
-# Install dependencies and the package itself using Poetry
+# Install dependencies using Poetry
 RUN poetry config virtualenvs.create false \
     && poetry install
 

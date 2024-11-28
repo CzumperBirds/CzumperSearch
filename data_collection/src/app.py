@@ -1,14 +1,21 @@
 """Main entry point for the data_collection package."""
 
 import threading
-from src.producers.joke_producer import produce_jokes
+from src.producers import daily_trivia_producer, joke_producer
 
 
 def main():
     """Main entry point for the data_collection package."""
-    joke_thread = threading.Thread(target=produce_jokes)
-    joke_thread.start()
-    joke_thread.join()
+    threads = []
+
+    threads.append(threading.Thread(target=joke_producer.produce_jokes))
+    threads.append(threading.Thread(target=daily_trivia_producer.produce_trivia_fun_facts))
+
+    for thread in threads:
+        thread.start()
+
+    for thread in threads:
+        thread.join()
 
 
 if __name__ == "__main__":
