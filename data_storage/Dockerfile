@@ -19,4 +19,8 @@ RUN poetry config virtualenvs.create false \
 
 COPY . /app
 
+# COPY wait-for-elasticsearch.sh /wait-for-elasticsearch.sh
+RUN chmod +x /app//wait-for-elasticsearch.sh
+ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
+
 CMD ["poetry", "run", "python", "src/data_storage_service.py"]
