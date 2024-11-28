@@ -8,10 +8,13 @@ services:
     container_name: poetry-kafka-producer
     environment:
       BOOTSTRAP_SERVERS: kafka:9092
+      JOKES_API_URL: https://v2.jokeapi.dev/joke/Any
+      REDDIT_DAILY_TRIVIA_RSS_URL: https://www.reddit.com/r/todayilearned/.rss
+      TIMEOUT: 5
     networks:
       - kafka
     volumes:
-      - .:/app # Optional: Mount the project directory for real-time development.
+      - .:/app
 
 networks:
   kafka:
