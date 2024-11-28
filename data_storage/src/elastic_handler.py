@@ -16,3 +16,8 @@ class ElasticsearchHandler:
 
         response = self.es.index(index=self.index_name, document=document) #TODO add apikey or sth
         return response
+    
+    def search_all(self):
+        """Searches all documents in the index."""
+        response = self.es.search(index=self.index_name, body={"query": {"match_all": {}}})
+        return response
