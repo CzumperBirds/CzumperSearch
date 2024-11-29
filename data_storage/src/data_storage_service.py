@@ -2,6 +2,7 @@ from kafka import KafkaConsumer, TopicPartition
 from elastic_handler import ElasticsearchHandler
 import json
 import time
+from pprint import pprint
 
 
 class Message:
@@ -120,6 +121,13 @@ def main():
         print(f"Indexed to Elasticsearch: {es_response}")
     
     kafka_handler.close_consumer()
+
+    out = es_handler.search_all()
+
+    print("Search response:")
+    for hit in out['hits']['hits']:
+        pprint(hit)
+    # print(out)
 
 if __name__ == "__main__":
     print("START FILE\n")
