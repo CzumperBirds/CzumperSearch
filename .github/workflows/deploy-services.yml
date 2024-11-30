@@ -35,6 +35,9 @@ jobs:
       frontend-changed: ${{ steps.filter.outputs.frontend }}
       data-collection-changed: ${{ steps.filter.outputs.data_collection }}
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Filter changes
         id: filter
         uses: dorny/paths-filter@v3
@@ -50,6 +53,9 @@ jobs:
     needs: filter
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Build and push frontend image
         uses: docker/build-push-action@v6
         with:
@@ -64,6 +70,9 @@ jobs:
     needs: filter
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
       - name: Build and push data collection image
         uses: docker/build-push-action@v6
         with:
