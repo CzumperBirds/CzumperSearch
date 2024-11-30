@@ -8,14 +8,14 @@ app = FastAPI()
 
 
 @app.post("/control")
-async def control_producers(request: ControlRequest) -> dict:
+async def control_producers(request: ControlRequest) -> tuple[dict, int]:
     """Control the start or stop of the producers."""
     if request.action == "start":
         start_producers()
-        return {"status": "Producers started"}
+        return {"status": "Producers started"}, 200
 
     if request.action == "stop":
         stop_producers()
-        return {"status": "Producers stopped"}
+        return {"status": "Producers stopped"}, 200
 
     return {"status": "Invalid action"}, 400

@@ -29,12 +29,20 @@ This application collects data from various sources and produces messages to Kaf
     docker compose up --build
     ```
 
-2. **Stop the message producing**:
+## Managing the process of message factory
+
+1. **Stop the message producing**:
     ```bash
-    docker stop poetry-kafka-producer
+    curl -X 'POST' \
+    'http://localhost:8000/control' \
+    -H 'Content-Type: application/json' \
+    -d '{"action": "stop"}'
     ```
 
-3. **Start the message producing again**:
+2. **Restart the message producing again**:
     ```bash
-    docker start poetry-kafka-producer
+    curl -X 'POST' \
+    'http://localhost:8000/control' \
+    -H 'Content-Type: application/json' \
+    -d '{"action": "start"}'
     ```
