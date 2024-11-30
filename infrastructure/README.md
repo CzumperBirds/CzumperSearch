@@ -17,17 +17,23 @@ This folder contains Docker Compose configurations for different environments in
 
 ## How to Launch the Development Environment
 
-1. **Launch the development environment**:
+To launch the local development environment, run the following command:
 
-   ```bash
-   docker-compose -f docker-compose.dev.yml up -d
-   ```
+```bash
+docker compose -f docker-compose.dev.yml up -d
+```
 
-2. **Stop the environment** when you're done:
+To launch specific containers, use:
 
-   ```bash
-   docker-compose -f docker-compose.dev.yml down
-   ```
+```bash
+docker compose -f docker-compose.dev.yml <service1-name> <service2-name> up -d
+```
+
+To stop the environment, run:
+
+```bash
+docker-compose -f docker-compose.dev.yml down
+```
 
 ---
 
