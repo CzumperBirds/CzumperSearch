@@ -26,7 +26,7 @@ docker compose -f docker-compose.dev.yml up -d
 To launch specific containers, use:
 
 ```bash
-docker compose -f docker-compose.dev.yml <service1-name> <service2-name> up -d
+docker compose -f docker-compose.dev.yml up <service1-name> <service2-name> -d
 ```
 
 To stop the environment, run:
