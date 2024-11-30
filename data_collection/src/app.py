@@ -1,42 +1,21 @@
-"""Module to run the data collection producers."""
+"""Main application file to control the producers."""
 
-import threading
-import signal
-from src.producers import daily_trivia_producer, joke_producer
+from fastapi import FastAPI
+from src.model.control_request import ControlRequest
+from src.utils.producer_manager import start_producers, stop_producers
 
-RUNNING = True
-
-
-def signal_handler(sig, frame):
-    """Signal handler to stop the producers gracefully."""
-    global RUNNING
-    print("Received signal to stop. Shutting down producers...")
-    RUNNING = False
+app = FastAPI()
 
 
-def run_producer_with_check(produce_function):
-    """Run the producer function while checking if the program is still running."""
-    global RUNNING
-    while RUNNING:
-        produce_function()
+@app.post("/control")
+async def control_producers(request: ControlRequest) -> dict:
+    """Control the start or stop of the producers."""
+    if request.action == "start":
+        start_producers()
+        return {"status": "Producers started"}
 
+    if request.action == "stop":
+        stop_producers()
+        return {"status": "Producers stopped"}
 
-def main():
-    """Main entry point for the data_collection package."""
-    threads = []
-
-    signal.signal(signal.SIGINT, signal_handler)
-    signal.signal(signal.SIGTERM, signal_handler)
-
-    threads.append(threading.Thread(target=run_producer_with_check, args=(joke_producer.produce_jokes,)))
-    threads.append(threading.Thread(target=run_producer_with_check, args=(daily_trivia_producer.produce_trivia_fun_facts,)))
-
-    for thread in threads:
-        thread.start()
-
-    for thread in threads:
-        thread.join()
-
-
-if __name__ == "__main__":
-    main()
+    return {"status": "Invalid action"}, 400
