@@ -1,7 +1,7 @@
 """Main application file to control the producers."""
 
 from fastapi import FastAPI, APIRouter
-from src.model.control_request import Action, ControlRequest
+from src.model.api import Action, ControlRequest, StatusResponse
 from src.utils.producer_manager import start_producers, stop_producers
 import src.config
 
@@ -10,7 +10,7 @@ router = APIRouter(prefix="/api/v1/data-collection")
 
 
 @router.post("/control")
-async def control_producers(request: ControlRequest):
+async def control_producers(request: ControlRequest) -> StatusResponse:
     """Control the start or stop of the producers."""
     match request.action:
         case Action.start:
@@ -19,13 +19,13 @@ async def control_producers(request: ControlRequest):
         case Action.stop:
             stop_producers()
 
-    return {"is_running": src.config.RUNNING}
+    return StatusResponse(is_running=src.config.RUNNING)
 
 
 @router.get("/status")
-async def get_status():
+async def get_status() -> StatusResponse:
     """Return status of service"""
-    return {"is_running": src.config.RUNNING}
+    return StatusResponse(is_running=src.config.RUNNING)
 
 
 app.include_router(router)
