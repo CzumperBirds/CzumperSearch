@@ -19,6 +19,7 @@ services:
       KAFKA_LOG_RETENTION_HOURS: 168
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       CLUSTER_ID: "fajnioASFAIHU83982fas"
+    restart: unless-stopped
     volumes:
       - kafka-data:/var/lib/kafka/data
     networks:
@@ -31,8 +32,9 @@ services:
       KAFKA_CLUSTERS_0_NAME: "local"
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: "kafka:9092"
       AUTH_TYPE: "LOGIN_FORM"
-    env_file:
-      - ".env"
+      SPRING_SECURITY_USERNAME: ${KAFKA_UI_USERNAME}
+      SPRING_SECURITY_PASSWORD: ${KAFKA_UI_PASSWORD}
+    restart: unless-stopped
     depends_on:
       - kafka
     networks:
@@ -44,11 +46,48 @@ services:
       - "traefik.http.routers.kafka-ui-test.entrypoints=websecure"
       - "traefik.http.routers.kafka-ui-test.tls.certresolver=myresolver"
 
+  elasticsearch:
+    image: elasticsearch:8.15.5
+    container_name: elasticsearch-test
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms512m -Xmx512m
+      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+      - server.publicBaseUrl=https://kibana-test.czumpers.com
+    restart: unless-stopped
+    volumes:
+      - elasticsearch-data:/usr/share/elasticsearch/data
+    networks:
+      - elknet-test
+
+  kibana:
+    image: kibana:8.15.5
+    container_name: kibana-test
+    environment:
+      - ELASTICSEARCH_HOSTS=http://elasticsearch:9200
+      - ELASTICSEARCH_USERNAME=kibana_system
+      - ELASTICSEARCH_PASSWORD=${KIBANA_PASSWORD}
+    restart: unless-stopped
+    networks:
+      - elknet-test
+      - traefik-public
+    depends_on:
+      - elasticsearch
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kibana-test.rule=Host(`kibana-test.czumpers.com`)"
+      - "traefik.http.routers.kibana-test.entrypoints=websecure"
+      - "traefik.http.routers.kibana-test.tls.certresolver=myresolver"
+
 networks:
   kafka-test:
     name: kafka-test
+  elknet-test:
+    name: elknet-test
   traefik-public:
     external: true
 
 volumes:
   kafka-data:
+  elasticsearch-data:
