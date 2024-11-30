@@ -1,14 +1,14 @@
 """Model for the control request."""
 
-from pydantic import BaseModel
 from enum import Enum
+from pydantic import BaseModel
 
 
 class Action(str, Enum):
     """Enum for controlling producers."""
 
-    start = "start"
-    stop = "stop"
+    START = "start"
+    STOP = "stop"
 
 
 class ControlRequest(BaseModel):
@@ -18,4 +18,6 @@ class ControlRequest(BaseModel):
 
 
 class StatusResponse(BaseModel):
+    """Response for the status of the producers."""
+
     is_running: bool

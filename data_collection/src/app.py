@@ -13,10 +13,10 @@ router = APIRouter(prefix="/api/v1/data-collection")
 async def control_producers(request: ControlRequest) -> StatusResponse:
     """Control the start or stop of the producers."""
     match request.action:
-        case Action.start:
+        case Action.START:
             start_producers()
 
-        case Action.stop:
+        case Action.STOP:
             stop_producers()
 
     return StatusResponse(is_running=src.config.RUNNING)
