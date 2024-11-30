@@ -6,11 +6,12 @@ import { DataContainerComponent } from '../../shared/components/data-container/d
 import { CommonModule } from '@angular/common';
 import { DataInstance } from '../../shared/interfaces/dataInstance.model';
 import { Subscription } from 'rxjs';
+import { ArthurButtonComponent } from '../../shared/components/arthur-button/arthur-button.component';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [LogoComponent, SearchbarComponent, DataContainerComponent, CommonModule],
+  imports: [LogoComponent, SearchbarComponent, DataContainerComponent, CommonModule, ArthurButtonComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
