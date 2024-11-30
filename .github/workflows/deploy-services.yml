@@ -11,8 +11,6 @@ on:
 jobs:
   setup:
     runs-on: ubuntu-latest
-    outputs:
-      docker-credentials: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
