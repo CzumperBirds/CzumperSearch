@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './logo-component.component.html',
   styleUrl: './logo-component.component.scss'
 })
-export class LogoComponentComponent {
+export class LogoComponent {
 
 }
