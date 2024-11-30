@@ -14,17 +14,14 @@ python-decouple = "^3.8"
 requests = "^2.32.3"
 six = "^1.16.0"
 uvicorn = "^0.21.1"
+python-dotenv = "^1.0.1"
 
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = ["poetry-core"]
 
 [tool.pylint]
-disable = [
-  "E0401",
-  "W0135",
-  "C0301",
-]
+disable = ["E0401", "W0135", "C0301"]
 
 [tool.black]
 line-length = 100
