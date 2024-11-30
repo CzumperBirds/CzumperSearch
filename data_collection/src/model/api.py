@@ -15,3 +15,7 @@ class ControlRequest(BaseModel):
     """Request to control the producers."""
 
     action: Action
+
+
+class StatusResponse(BaseModel):
+    is_running: bool
