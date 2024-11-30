@@ -19,3 +19,6 @@ def joke_response_manager():
         print(f"An error occurred: {e} with code {e.code} (Timestamp: {e.timestamp})")
         print(f"Additional information: {e.info}")
         yield None
+    except Exception as e:
+        print(f"An unexpected error occurred: {e}")
+        yield None

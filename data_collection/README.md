@@ -26,7 +26,7 @@ This application collects data from various sources and produces messages to Kaf
 
 1. **Build and run the Docker image**:
     ```bash
-    docker compose up --build
+    docker compose -f docker-compose.dev.yml up -d --build
     ```
 
 ## Managing the process of message factory
