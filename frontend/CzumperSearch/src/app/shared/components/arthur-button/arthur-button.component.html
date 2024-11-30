@@ -1,3 +1,12 @@
 <div class="buttonContainer">
+Status DCS:
+<ng-container *ngIf="dcsRunning; else elseTemplate">
+  <b class="running">Running</b>
+</ng-container>
+<ng-template #elseTemplate>
+   <b class="stopped">Stopped</b>
+</ng-template>
 
+<br>
+<input type="button" value="Włącz">
 </div>

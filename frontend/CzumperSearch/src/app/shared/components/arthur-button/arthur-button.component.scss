@@ -1,0 +1,17 @@
+@import '../../../../styles/colors.scss';
+
+.buttonContainer {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 10px
+}
+
+.running {
+  color: $mainGreen
+}
+
+.stopped {
+  color: $mainRed
+}
+
