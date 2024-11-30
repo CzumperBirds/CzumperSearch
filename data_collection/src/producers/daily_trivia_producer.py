@@ -7,13 +7,14 @@ from contextlib import closing
 from kafka import KafkaProducer
 from src.context.trivia_context_manager import trivia_response_manager
 from src.utils.kafka_topic_manager import create_topic, does_topic_exist
+import src.config
 
 KAFKA_ADDRESS = os.getenv("BOOTSTRAP_SERVERS")
 
 
 def article_generator():
     """Yield articles from the RSS feed."""
-    while True:
+    while src.config.RUNNING:
         with trivia_response_manager() as article:
             if article:
                 yield article

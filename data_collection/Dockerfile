@@ -23,4 +23,4 @@ RUN poetry config virtualenvs.create false \
 COPY . /app
 
 # Default command for the container
-CMD ["poetry", "run", "data-collection"]
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]

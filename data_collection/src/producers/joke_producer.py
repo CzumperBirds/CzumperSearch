@@ -7,13 +7,14 @@ from contextlib import closing
 from kafka import KafkaProducer
 from src.context.joke_context_manager import joke_response_manager
 from src.utils.kafka_topic_manager import create_topic, does_topic_exist
+import src.config
 
 KAFKA_ADDRESS = os.getenv("BOOTSTRAP_SERVERS")
 
 
 def joke_generator():
     """Yield jokes from the API."""
-    while True:
+    while src.config.RUNNING:
         with joke_response_manager() as joke:
             if joke:
                 yield joke
