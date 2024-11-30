@@ -1,26 +1,27 @@
 [tool.poetry]
-name = "src"
-version = "0.1.0"
-description = ""
 authors = ["Oliwier Szypczyn <oli.szypczyn@gmail.com>"]
+description = ""
+name = "src"
 readme = "README.md"
+version = "0.1.0"
 
 [tool.poetry.dependencies]
+feedparser = "^6.0.11"
+kafka-python-ng = "^2.2.3"
 python = "^3.13"
+python-decouple = "^3.8"
 requests = "^2.32.3"
 six = "^1.16.0"
-kafka-python-ng = "^2.2.3"
-python-decouple = "^3.8"
-feedparser = "^6.0.11"
 
 [build-system]
-requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+requires = ["poetry-core"]
 
 [tool.pylint]
 disable = [
-    "E0401",
-    "W0135"
+  "E0401",
+  "W0135",
+  "C0301",
 ]
 
 [tool.black]
