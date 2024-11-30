@@ -22,5 +22,7 @@ RUN poetry config virtualenvs.create false \
 # Copy the rest of the application
 COPY . /app
 
+EXPOSE 8000
+
 # Default command for the container
-CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "src.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]

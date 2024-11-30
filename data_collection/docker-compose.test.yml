@@ -1,0 +1,21 @@
+services:
+  data-collection:
+    image: docker.czumpers.com/cs-data-collection:test
+    container_name: cs-data-collection-test
+    env_file:
+      - ./.env
+    networks:
+      - kafka-test
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cs-data-collection-test.rule=Host(`api-test.czumpers.com`)"
+      - "traefik.http.routers.cs-data-collection-test.entrypoints=websecure"
+      - "traefik.http.routers.cs-data-collection-test.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  kafka-test:
+    external: true
+  traefik-public:
+    external: true

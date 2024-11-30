@@ -2,14 +2,12 @@
 
 import json
 import time
-import os
 from contextlib import closing
 from kafka import KafkaProducer
 from src.context.trivia_context_manager import trivia_response_manager
 from src.utils.kafka_topic_manager import create_topic, does_topic_exist
 import src.config
-
-KAFKA_ADDRESS = os.getenv("BOOTSTRAP_SERVERS")
+from src.config import KAFKA_ADDRESS
 
 
 def article_generator():
@@ -24,7 +22,9 @@ def article_generator():
 
 def produce_trivia_fun_facts():
     """Produce trivia fun facts to Kafka."""
-    kafka_producer = KafkaProducer(bootstrap_servers=KAFKA_ADDRESS, value_serializer=lambda v: json.dumps(v).encode("utf-8"))
+    kafka_producer = KafkaProducer(
+        bootstrap_servers=KAFKA_ADDRESS, value_serializer=lambda v: json.dumps(v).encode("utf-8")
+    )
 
     if not does_topic_exist(topic_name="reddit-daily-trivia", bootstrap_servers=KAFKA_ADDRESS):
         create_topic(topic_name="reddit-daily-trivia", bootstrap_servers=KAFKA_ADDRESS)
