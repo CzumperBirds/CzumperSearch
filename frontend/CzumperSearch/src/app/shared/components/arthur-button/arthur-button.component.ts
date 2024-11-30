@@ -10,7 +10,7 @@ export interface DcsApiResponse {
 @Component({
   selector: 'app-arthur-button',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, HttpClientModule],
   templateUrl: './arthur-button.component.html',
   styleUrl: './arthur-button.component.scss'
 })
@@ -20,23 +20,33 @@ export class ArthurButtonComponent implements OnInit{
     is_running: false
   };
   dcsRunning : boolean = false;
-
+  changeInProgress : boolean = true;
   constructor (private DscApi : DcsApiService){
 
   }
 
   ngOnInit(): void {
-      this.fetchData()
       this.updateStatus()
   }
 
-  updateStatus(): void {
-    this.fetchData()
+  async updateStatus() {
+    await this.fetchData()
     this.dcsRunning = this.dcServiceStatusResponse.is_running
+    this.changeInProgress = false
+    console.log(this.changeInProgress)
   }
 
-  fetchData(): void {
+  async fetchData() {
+    this.changeInProgress = true
     this.DscApi.getDCServiceStatus().subscribe({
+      next: (response) =>  this.dcServiceStatusResponse = response,
+      error: (error) => console.error('GET Error:', error),
+    });
+  }
+
+  async switchStatus(status: string){
+    this.changeInProgress = true
+    this.DscApi.postData({'action': status}).subscribe({
       next: (response) =>  this.dcServiceStatusResponse = response,
       error: (error) => console.error('GET Error:', error),
     });

@@ -15,3 +15,28 @@
   color: $mainRed
 }
 
+.apiButton {
+  padding: 10px 20px;
+  cursor: pointer;
+  color: white;
+  border: 3px ridge white;
+  border-radius: 5px;
+  &:hover {
+    border: 3px ridge rgb(161, 161, 161);
+  }
+  margin: 5px;
+}
+
+
+.turnOn {
+  background-color: $mainGreen;
+}
+
+.turnOff {
+  background-color: $mainRed;
+}
+
+.inProgress {
+  opacity: 50%;
+  pointer-events: none;
+}

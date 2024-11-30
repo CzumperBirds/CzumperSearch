@@ -6,18 +6,18 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class DcsApiService {
-  private baseUrl: string = 'https://api-test.czumpers.com/api/v1/data-collection'; // Replace with your API's base URL
+  private baseUrl: string = 'https://api-test.czumpers.com/api/v1/data-collection';
 
   constructor(private http: HttpClient) {}
 
   getDCServiceStatus(): Observable<any> {
-    const endpoint = `${this.baseUrl}/status`; // Replace with your endpoint
+    const endpoint = `${this.baseUrl}/status`;
     console.log(endpoint)
     return this.http.get<any>(endpoint);
   }
 
   postData(body: any): Observable<any> {
-    const endpoint = `${this.baseUrl}/control`; // Replace with your endpoint
+    const endpoint = `${this.baseUrl}/control`;
     return this.http.post<any>(endpoint, body);
   }
 }

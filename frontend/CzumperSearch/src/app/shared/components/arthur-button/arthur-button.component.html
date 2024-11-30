@@ -1,6 +1,6 @@
 <div class="buttonContainer">
 Status DCS:
-<ng-container *ngIf="dcsRunning; else elseTemplate">
+<ng-container *ngIf="dcServiceStatusResponse.is_running; else elseTemplate">
   <b class="running">Running</b>
 </ng-container>
 <ng-template #elseTemplate>
@@ -8,5 +8,14 @@ Status DCS:
 </ng-template>
 
 <br>
-<input type="button" value="Włącz">
+  <input type="button" value="Włącz" class="apiButton turnOn" [ngClass]="{
+    'inProgress' : dcsRunning,
+  }"
+  (click)="switchStatus('start')"
+  >
+  <input type="button" value='Wyłącz' class="apiButton turnOff" [ngClass]="{
+    'inProgress' : !dcsRunning,
+  }"
+  (click)="switchStatus('stop')"
+  >
 </div>
