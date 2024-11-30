@@ -1,0 +1,56 @@
+name: Build and Push Docker Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "frontend/**/*"
+      - "data_collection/**/*"
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      docker-credentials: ${{ secrets.DOCKERHUB_TOKEN }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+  deploy-frontend:
+    if: ${{ github.event.paths_contains('frontend/**') }}
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push frontend image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./frontend
+          push: true
+          tags: |
+            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test
+            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.sha }}
+
+  deploy-data-collection:
+    if: ${{ github.event.paths_contains('data_collection/**') }}
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build and push data collection image
+        uses: docker/build-push-action@v6
+        with:
+          context: ./data_collection
+          push: true
+          tags: |
+            docker.czumpers.com/cs-data-collection:test
+            docker.czumpers.com/cs-data-collection:${{ github.sha }}
