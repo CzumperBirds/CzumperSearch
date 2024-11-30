@@ -50,7 +50,7 @@ jobs:
           context: ./frontend/CzumperSearch/
           push: true
           tags: |
-            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:prod
+            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test
             ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.sha }}
 
   deploy-data-collection:
@@ -74,5 +74,5 @@ jobs:
           context: ./data_collection
           push: true
           tags: |
-            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:prod
+            ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test
             ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.sha }}
