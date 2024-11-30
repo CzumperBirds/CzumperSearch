@@ -1,0 +1,16 @@
+services:
+  frontend:
+    image: docker.czumpers.com/cs-frontend:test
+    container_name: cs-frontend-test
+    networks:
+      - traefik-public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cs-frontend-test.rule=Host(`search-test.czumpers.com`)"
+      - "traefik.http.routers.cs-frontend-test.entrypoints=websecure"
+      - "traefik.http.routers.cs-frontend-test.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  traefik-public:
+    external: true
