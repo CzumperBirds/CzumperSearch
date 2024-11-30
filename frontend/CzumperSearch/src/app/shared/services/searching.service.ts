@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { DataInstance } from '../interfaces/dataInstance.model';
-import { BehaviorSubject } from 'rxjs';  // Import BehaviorSubject
+import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,7 +8,11 @@ import { Observable } from 'rxjs';
 })
 export class SearchingService {
 
-  private foundData : BehaviorSubject<Array<DataInstance>> = new BehaviorSubject<Array<DataInstance>>([]);
+  private foundData : BehaviorSubject<Array<DataInstance>> = new BehaviorSubject<Array<DataInstance>>([ {
+    title: "Piwo",
+    content: "Lubię piwo",
+    type: "fact"
+  }]);
 
   constructor() {
   }
@@ -25,23 +29,23 @@ export class SearchingService {
         if (success) {
           this.foundData.next([
             {
-              title: "fact",
-              content: "fact",
+              title: "Piwo",
+              content: "Lubię piwo",
               type: "fact"
             },
             {
-              title: "joke",
-              content: "joke",
+              title: "Nos kacpra",
+              content: "Kacper nie ma długiego nosa",
               type: "joke"
             },
             {
-              title: "fact",
-              content: "fact",
+              title: "Nos Kacpra",
+              content: "Kacper ma długi nos",
               type: "fact"
             },
             {
-              title: "fact",
-              content: "fact",
+              title: "Komputer Artura",
+              content: "Ten serwis będzie działał do momentu w którym zacznie padać śnieg",
               type: "fact"
             }
           ]);

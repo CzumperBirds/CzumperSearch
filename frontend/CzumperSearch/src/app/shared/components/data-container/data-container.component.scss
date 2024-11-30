@@ -1,6 +1,44 @@
+@import '../../../../styles/colors.scss';
+
 .instanceContainer {
-  border: 3px solid white;
+  border: 3px solid rgba(255, 255, 255, 0.123);
   border-radius: 20px;
-  padding: 20px;
   margin: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-size: 20px;
+}
+
+.topBar {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  height: 30px;
+}
+
+.titlePart {
+  width: 80%;
+}
+
+.titlePart, .typePart  {
+
+  background-color: rgb(61, 61, 61);
+  p {
+    padding: 0px 10px;
+    margin: 5px;
+  }
+}
+
+.typePart {
+  border-left: 1px solid $background;
+  width: calc(20% - 1px);
+  b {
+    color: $mainGreen;
+  }
+}
+
+.contentContainer {
+  width: 100%;
+  padding: 20px;
 }
