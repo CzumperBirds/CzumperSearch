@@ -1,0 +1,14 @@
+<div class="logoContainer">
+  <app-logo-component></app-logo-component>
+</div>
+<div class="searchbarContainer">
+  <app-searchbar></app-searchbar>
+</div>
+<div class="dataDiv">
+  <app-data-container *ngFor="let instance of data"
+  [title]="instance.title"
+  [content]="instance.content"
+  [type]="instance.type">
+
+  </app-data-container>
+</div>

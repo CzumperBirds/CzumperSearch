@@ -1,1 +1,19 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/colors.scss';
+
+@font-face {
+  font-family: 'Teko'; /* This is the name you'll use to apply the font */
+  src: url('assets/Teko-Regular.ttf') format('truetype'); /* Adjust path to the font file */
+  font-weight: normal;
+  font-style: normal;
+}
+
+html {
+  background-color: $background;
+  color: white;
+  padding: 0px !important;
+}
+
+body {
+  padding: 0px;
+  font-family: 'Teko', sans-serif;
+}
