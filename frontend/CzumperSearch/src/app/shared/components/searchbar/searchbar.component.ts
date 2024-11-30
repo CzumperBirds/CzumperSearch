@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SearchingService } from '../../services/searching.service';
 
 @Component({
   selector: 'app-searchbar',
@@ -8,5 +9,14 @@ import { Component } from '@angular/core';
   styleUrl: './searchbar.component.scss'
 })
 export class SearchbarComponent {
+
+  constructor (private searchService : SearchingService){
+
+  }
+
+  async searchForData(){
+    this.searchService.searchData()
+    console.log("Data found")
+  }
 
 }
