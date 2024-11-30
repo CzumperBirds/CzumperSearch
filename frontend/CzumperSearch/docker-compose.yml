@@ -1,9 +1,7 @@
-version: '3'
+version: "3.8"
+
 services:
   angular-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     ports:
       - "80:80"
-    restart: always
