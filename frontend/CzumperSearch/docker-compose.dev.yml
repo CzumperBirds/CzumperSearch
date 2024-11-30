@@ -1,7 +1,5 @@
-version: "3.8"
-
 services:
-  angular-app:
+  frontend:
     build: .
     ports:
       - "80:80"
