@@ -9,12 +9,12 @@ services:
       JOKES_API_URL: https://v2.jokeapi.dev/joke/Any
       REDDIT_DAILY_TRIVIA_RSS_URL: https://www.reddit.com/r/todayilearned/.rss
       TIMEOUT: 5
+    ports:
+      - "8000:8000"
     networks:
       - kafka
     volumes:
       - .:/app
-    ports:
-      - "8000:8000"
 
 networks:
   kafka:
