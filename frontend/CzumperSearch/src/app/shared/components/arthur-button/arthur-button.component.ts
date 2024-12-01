@@ -32,12 +32,9 @@ export class ArthurButtonComponent implements OnInit{
   async updateStatus() {
     await this.fetchData()
     this.dcsRunning = this.dcServiceStatusResponse.is_running
-    this.changeInProgress = false
-    console.log(this.changeInProgress)
   }
 
   async fetchData() {
-    this.changeInProgress = true
     this.DscApi.getDCServiceStatus().subscribe({
       next: (response) =>  this.dcServiceStatusResponse = response,
       error: (error) => console.error('GET Error:', error),
@@ -45,7 +42,6 @@ export class ArthurButtonComponent implements OnInit{
   }
 
   async switchStatus(status: string){
-    this.changeInProgress = true
     this.DscApi.postData({'action': status}).subscribe({
       next: (response) =>  this.dcServiceStatusResponse = response,
       error: (error) => console.error('GET Error:', error),
