@@ -9,12 +9,12 @@ Status DCS:
 
 <br>
   <input type="button" value="Włącz" class="apiButton turnOn" [ngClass]="{
-    'inProgress' : dcsRunning,
+    'inProgress' : dcServiceStatusResponse.is_running,
   }"
   (click)="switchStatus('start')"
   >
   <input type="button" value='Wyłącz' class="apiButton turnOff" [ngClass]="{
-    'inProgress' : !dcsRunning,
+    'inProgress' : !dcServiceStatusResponse.is_running,
   }"
   (click)="switchStatus('stop')"
   >
