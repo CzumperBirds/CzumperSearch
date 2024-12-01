@@ -39,4 +39,5 @@ env = [
     "JOKES_API_URL=https://v2.jokeapi.dev/joke/Any",
     "TIMEOUT=5",
     "BOOTSTRAP_SERVERS=localhost:9092",
+    "REDDIT_DAILY_TRIVIA_RSS_URL=https://www.reddit.com/r/todayilearned/.rss"
 ]
