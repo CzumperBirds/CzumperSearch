@@ -9,6 +9,10 @@ producer_threads = []
 
 def start_producers():
     """Start the message producing threads."""
+    if src.config.RUNNING:
+        print("Producers already running")
+        return
+
     print("Starting producers...")
     global producer_threads
     src.config.RUNNING = True
@@ -22,6 +26,10 @@ def start_producers():
 
 def stop_producers():
     """Stop the message producing threads."""
+    if not src.config.RUNNING:
+        print("Producers are already not running")
+        return
+
     print("Stopping producers...")
     global producer_threads
 
