@@ -9,3 +9,4 @@ RUNNING = False
 JOKES_API_URL = os.environ["JOKES_API_URL"]
 TIMEOUT = int(os.environ["TIMEOUT"])
 KAFKA_ADDRESS = os.environ["BOOTSTRAP_SERVERS"]
+DAILY_TRIVIA_URL = os.environ["REDDIT_DAILY_TRIVIA_RSS_URL"]
