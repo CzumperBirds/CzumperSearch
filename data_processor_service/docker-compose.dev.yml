@@ -1,0 +1,10 @@
+services:
+    data_processor_service:
+        build:
+          context: .
+        networks:
+          - kafka
+
+networks:
+    kafka:
+        external: true
