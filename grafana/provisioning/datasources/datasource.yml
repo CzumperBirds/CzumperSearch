@@ -1,0 +1,16 @@
+apiVersion: 1
+datasources:
+  - name: GitHub
+    type: grafana-github-datasource
+    access: proxy
+    url: https://api.github.com
+    isDefault: false
+    jsonData:
+      authType: "token"
+      token: "${GF_GITHUB_TOKEN}"  # The GitHub Personal Access Token as an environment variable
+      owner: "${GF_GITHUB_OWNER}"  # The GitHub organization or user account to fetch data from
+      repo: "${GF_GITHUB_REPO}"    # The GitHub repository to pull metrics from (optional)
+      maxRepos: 5                 # Number of repositories to pull metrics from (optional)
+    secureJsonData:
+      githubToken: "${GF_GITHUB_TOKEN}"  # Same GitHub Personal Access Token, but here it is stored securely
+    version: 1
