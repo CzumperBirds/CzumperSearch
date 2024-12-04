@@ -89,7 +89,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -987,18 +987,223 @@
       "type": "row"
     },
     {
+      "datasource": {
+        "type": "grafana-github-datasource",
+        "uid": "PD9E0FD737F90DAD0"
+      },
+      "description": "Consists all commits to production branch in the last 30days",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "color-text",
+              "wrapText": false
+            },
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "Jakub": {
+                  "index": 9,
+                  "text": "Jakup Kryczka"
+                },
+                "Mateusz": {
+                  "index": 4,
+                  "text": "Mateusz Matukiewicz"
+                },
+                "Oliwier": {
+                  "index": 8,
+                  "text": "Oliś Szczypszyn"
+                },
+                "OutcastPirate": {
+                  "index": 2,
+                  "text": "Jakup Kryczka"
+                },
+                "ZZZdream": {
+                  "index": 6,
+                  "text": "Kacpir Multan"
+                },
+                "ZZZdreamm": {
+                  "index": 3,
+                  "text": "Kacpir Multan"
+                },
+                "akempins": {
+                  "index": 7,
+                  "text": "Artór Kempiński"
+                },
+                "arcziwoda": {
+                  "index": 1,
+                  "text": "Artór Kempiński"
+                },
+                "mati": {
+                  "index": 5,
+                  "text": "Mateusz Matukiewicz"
+                },
+                "oszypczy": {
+                  "index": 0,
+                  "text": "Oliś Szczypszyn"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "author_email"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 140
+              },
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "id"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 32
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "author"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 178
+              },
+              {
+                "id": "custom.hidden",
+                "value": false
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "author_login"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "author_company"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "pushed_at"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "committed_at"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 194
+              }
+            ]
+          }
+        ]
+      },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
         "y": 16
       },
-      "id": 38,
-      "libraryPanel": {
-        "name": "main-branch-commits",
-        "uid": "be5xnph9qoutcb"
+      "id": 39,
+      "options": {
+        "cellHeight": "sm",
+        "footer": {
+          "countRows": false,
+          "enablePagination": false,
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
       },
-      "title": "main-branch-commits"
+      "pluginVersion": "11.3.1",
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafana-github-datasource",
+            "uid": "PD9E0FD737F90DAD0"
+          },
+          "options": {
+            "gitRef": "main"
+          },
+          "owner": "CzumperBirds",
+          "queryType": "Commits",
+          "refId": "A",
+          "repository": "CzumperSearch"
+        }
+      ],
+      "title": "main-branch-commits",
+      "type": "table"
     },
     {
       "datasource": {
@@ -1007,6 +1212,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1088,6 +1294,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1197,6 +1404,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1290,6 +1498,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1357,6 +1566,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1427,6 +1637,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1505,6 +1716,7 @@
       "fieldConfig": {
         "defaults": {
           "custom": {
+            "align": "auto",
             "cellOptions": {
               "type": "auto"
             },
@@ -1688,13 +1900,13 @@
     ]
   },
   "time": {
-    "from": "now-7d",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {},
   "timezone": "",
   "title": "Github-dashboard",
   "uid": "iVcSTeyGz",
-  "version": 2,
+  "version": 1,
   "weekStart": ""
 }
