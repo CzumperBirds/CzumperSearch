@@ -43,3 +43,7 @@ make prod-upv
 make prod-delete
 ```
 
+## Add dashboards
+1. When you modify existing dashboard you can save its JSON locally (on host machine)
+and paste it in **/grafana/provisioning/dashboards** directory. 
+It will automatically import it after restart.
