@@ -4,12 +4,14 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"  # Maps Grafana's default port 3000 to your local machine
+      - "3000:3000" 
     environment:
-      - GF_SECURITY_ADMIN_USER=admin  # Default admin username
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Default admin password
+      - GF_SECURITY_ADMIN_USER=admin  
+      - GF_SECURITY_ADMIN_PASSWORD=admin 
+      - GF_PROVISIONING_PATH=/etc/grafana/provisioning
     volumes:
-      - grafana-data:/var/lib/grafana  # Persist data in a named volume
+      - grafana-data:/var/lib/grafana 
+      - ./provisioning:/etc/grafana/provisioning/dashboards-config
 
 
 volumes:
