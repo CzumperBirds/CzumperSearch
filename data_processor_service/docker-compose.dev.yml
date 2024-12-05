@@ -1,10 +1,18 @@
 services:
-    data_processor_service:
-        build:
-          context: .
-        networks:
-          - kafka
+  data_processor_service:
+    build:
+      context: .
+    networks:
+      - kafka
+    depends_on:
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - "27017:27017"
 
 networks:
-    kafka:
-        external: true
+  kafka:
+    external: true
