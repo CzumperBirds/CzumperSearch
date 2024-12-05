@@ -19,19 +19,21 @@ def test_start_producers():
 
     def mock_produce_jokes():
         while src.config.RUNNING:
-            time.sleep(0.1)
+            time.sleep(0.3)
 
     def mock_produce_trivia_fun_facts():
         while src.config.RUNNING:
-            time.sleep(0.1)
+            time.sleep(0.3)
 
-    with patch("src.producers.joke_producer.produce_jokes", side_effect=mock_produce_jokes), patch(
+    with patch(
+        "src.producers.joke_producer.produce_one_part_jokes", side_effect=mock_produce_jokes
+    ), patch(
         "src.producers.daily_trivia_producer.produce_trivia_fun_facts",
         side_effect=mock_produce_trivia_fun_facts,
     ):
         start_producers()
 
-        assert len(producer_threads) == 2
+        assert len(producer_threads) == 3
         assert all(isinstance(thread, threading.Thread) for thread in producer_threads)
         for thread in producer_threads:
             assert thread.is_alive()
@@ -44,12 +46,12 @@ def test_start_producers():
 
 def test_stop_producers():
     """Test that stop_producers correctly stops threads."""
-    with patch("src.producers.joke_producer.produce_jokes", return_value=None), patch(
+    with patch("src.producers.joke_producer.produce_one_part_jokes", return_value=None), patch(
         "src.producers.daily_trivia_producer.produce_trivia_fun_facts", return_value=None
     ):
         start_producers()
 
-        assert len(producer_threads) == 2
+        assert len(producer_threads) == 3
         assert src.config.RUNNING
 
         stop_producers()
@@ -60,7 +62,7 @@ def test_stop_producers():
 
 def test_producers_run_flag():
     """Test RUNNING flag behavior."""
-    with patch("src.producers.joke_producer.produce_jokes", return_value=None), patch(
+    with patch("src.producers.joke_producer.produce_one_part_jokes", return_value=None), patch(
         "src.producers.daily_trivia_producer.produce_trivia_fun_facts", return_value=None
     ):
         start_producers()

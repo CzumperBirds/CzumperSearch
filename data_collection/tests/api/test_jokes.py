@@ -4,7 +4,7 @@ import pytest
 import requests
 from src.api.jokes import get_joke_response
 from src.exceptions import joke_exception_factory
-from src.config import JOKES_API_URL
+from src.config import JOKES_URL
 
 
 def test_get_joke_response_success(requests_mock):
@@ -13,9 +13,9 @@ def test_get_joke_response_success(requests_mock):
         "error": False,
         "joke": "Why did the scarecrow win an award? He was outstanding in his field!",
     }
-    requests_mock.get(JOKES_API_URL, json=joke_data)
+    requests_mock.get(JOKES_URL, json=joke_data)
 
-    response = get_joke_response()
+    response = get_joke_response("single")
     assert response == joke_data
 
 
@@ -66,10 +66,10 @@ def test_get_joke_response_success(requests_mock):
 )
 def test_get_joke_response_exceptions(requests_mock, status_code, error_response, exception_type):
     """Test that the correct exceptions are raised for various error responses."""
-    requests_mock.get(JOKES_API_URL, json=error_response, status_code=status_code)
+    requests_mock.get(JOKES_URL, json=error_response, status_code=status_code)
 
     with pytest.raises(exception_type) as excinfo:
-        get_joke_response()
+        get_joke_response("single")
 
     exception = excinfo.value
     assert exception.code == error_response["code"]
@@ -85,10 +85,10 @@ def test_get_joke_response_retry_after(requests_mock):
     """Test that Retry-After is included in the exception."""
     error_response = {"error": True, "message": "Too Many Requests", "code": 429, "timestamp": 100}
     headers = {"Retry-After": "120"}
-    requests_mock.get(JOKES_API_URL, json=error_response, headers=headers, status_code=429)
+    requests_mock.get(JOKES_URL, json=error_response, headers=headers, status_code=429)
 
     with pytest.raises(joke_exception_factory.TooManyRequestsException) as excinfo:
-        get_joke_response()
+        get_joke_response("single")
 
     exception = excinfo.value
     assert exception.retry_after == "120"
@@ -99,7 +99,7 @@ def test_get_joke_response_timeout(mocker):
     mocker.patch("requests.get", side_effect=requests.exceptions.Timeout)
 
     with pytest.raises(requests.exceptions.Timeout):
-        get_joke_response()
+        get_joke_response("single")
 
 
 def test_get_joke_response_network_error(mocker):
@@ -107,4 +107,4 @@ def test_get_joke_response_network_error(mocker):
     mocker.patch("requests.get", side_effect=requests.exceptions.ConnectionError)
 
     with pytest.raises(requests.exceptions.ConnectionError):
-        get_joke_response()
+        get_joke_response("single")
