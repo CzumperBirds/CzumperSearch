@@ -17,7 +17,8 @@ def start_producers():
     global producer_threads
     src.config.RUNNING = True
 
-    producer_threads.append(threading.Thread(target=joke_producer.produce_jokes))
+    producer_threads.append(threading.Thread(target=joke_producer.produce_one_part_jokes))
+    producer_threads.append(threading.Thread(target=joke_producer.produce_two_part_jokes))
     producer_threads.append(threading.Thread(target=daily_trivia_producer.produce_trivia_fun_facts))
 
     for thread in producer_threads:
