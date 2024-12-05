@@ -12,7 +12,7 @@ def test_joke_response_manager_success(requests_mock):
     }
     requests_mock.get("https://v2.jokeapi.dev/joke/Any", json=joke_data)
 
-    with joke_response_manager() as response:
+    with joke_response_manager("single") as response:
         assert response == joke_data
 
 
@@ -31,7 +31,7 @@ def test_joke_response_manager_too_many_requests(requests_mock, mocker):
 
     mock_sleep = mocker.patch("time.sleep")
 
-    with joke_response_manager() as response:
+    with joke_response_manager("single") as response:
         assert response is True
         mock_sleep.assert_called_once_with(2)
 
@@ -46,7 +46,7 @@ def test_joke_response_manager_other_exception(requests_mock):
     }
     requests_mock.get("https://v2.jokeapi.dev/joke/Any", json=error_response, status_code=500)
 
-    with joke_response_manager() as response:
+    with joke_response_manager("single") as response:
         assert response is None
 
 
@@ -54,5 +54,5 @@ def test_joke_response_manager_network_error(mocker):
     """Test handling of network errors."""
     mocker.patch("requests.get", side_effect=requests.exceptions.ConnectionError)
 
-    with joke_response_manager() as response:
+    with joke_response_manager("single") as response:
         assert response is None
