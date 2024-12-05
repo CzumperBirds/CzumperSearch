@@ -7,10 +7,10 @@ from src.exceptions.joke_exception_factory import TooManyRequestsException, Joke
 
 
 @contextmanager
-def joke_response_manager():
+def joke_response_manager(joke_type: str):
     """Context manager to handle joke API responses."""
     try:
-        yield get_joke_response()
+        yield get_joke_response(joke_type)
     except TooManyRequestsException as e:
         print(f"Too many requests. Retrying after {e.retry_after} seconds.")
         time.sleep(int(e.retry_after))
