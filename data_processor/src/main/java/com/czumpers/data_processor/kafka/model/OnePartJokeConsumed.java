@@ -7,7 +7,6 @@ import java.util.Map;
 
 
 @Data
-@EqualsAndHashCode(of = {"id", "type", "category", "joke"})
 public class OnePartJokeConsumed {
     private int id;
     private String type;
