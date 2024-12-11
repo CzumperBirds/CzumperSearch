@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 @Data
-@EqualsAndHashCode(of = {"title", "link", "author", "published"})
 public class DailyTriviaConsumed {
+    private String id;
     private String title;
     private String link;
     private String author;
