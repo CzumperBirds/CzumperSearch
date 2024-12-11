@@ -6,7 +6,6 @@ import lombok.EqualsAndHashCode;
 import java.util.Map;
 
 @Data
-@EqualsAndHashCode(of = {"id", "type", "category", "setup", "delivery"})
 public class TwoPartJokeConsumed {
     private int id;
     private String type;

@@ -5,8 +5,8 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @AllArgsConstructor
-@Document(collection = "one_part_joke_hashes")
-public class OnePartJokeHash {
+@Document(collection = "two_part_jokes")
+public class TwoPartJokeDTO {
     @Id
-    private String hash;
+    private int jokeId;
 }
