@@ -1,0 +1,27 @@
+services:
+  data_processor_service:
+    image: docker.czumpers.com/cs-data-processor:test
+    container_name: cs-data-processor-test
+    networks:
+      - kafka-test
+      - data_processor_network-test
+    depends_on:
+      - mongo
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
+
+  mongo:
+    image: mongo:6.0
+    container_name: mongo-test
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - data_processor_network-test
+
+networks:
+  kafka-test:
+    external: true
+  data_processor_network-test:
+
+volumes:
+  mongo-data:
