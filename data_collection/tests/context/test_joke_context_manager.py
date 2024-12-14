@@ -1,7 +1,14 @@
 """Tests for the joke_response_manager context manager."""
 
+import pytest
 import requests
 from src.context.joke_context_manager import joke_response_manager
+
+
+@pytest.fixture
+def _mock_sleep(mocker):
+    """Mock time.sleep to avoid delays."""
+    mocker.patch("time.sleep", return_value=None)
 
 
 def test_joke_response_manager_success(requests_mock):
@@ -36,7 +43,7 @@ def test_joke_response_manager_too_many_requests(requests_mock, mocker):
         mock_sleep.assert_called_once_with(2)
 
 
-def test_joke_response_manager_other_exception(requests_mock):
+def test_joke_response_manager_other_exception(requests_mock, _mock_sleep, capfd):
     """Test handling of other JokeAPIException."""
     error_response = {
         "error": True,
@@ -47,12 +54,24 @@ def test_joke_response_manager_other_exception(requests_mock):
     requests_mock.get("https://v2.jokeapi.dev/joke/Any", json=error_response, status_code=500)
 
     with joke_response_manager("single") as response:
-        assert response is None
+        assert response is True
+
+    out, _ = capfd.readouterr()
+    assert (
+        "Exception class: <class 'src.exceptions.joke_exception_factory.InternalServerErrorException'>"
+        in out
+    )
+    assert "Additional information: No additional information available." in out
+    assert "Retrying after 3 seconds." in out
 
 
-def test_joke_response_manager_network_error(mocker):
+def test_joke_response_manager_network_error(mocker, _mock_sleep, capfd):
     """Test handling of network errors."""
     mocker.patch("requests.get", side_effect=requests.exceptions.ConnectionError)
 
     with joke_response_manager("single") as response:
-        assert response is None
+        assert response is True
+
+    out, _ = capfd.readouterr()
+    assert "An unexpected error occurred" in out
+    assert "Retrying after 3 seconds." in out
