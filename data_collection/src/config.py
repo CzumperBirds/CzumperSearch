@@ -9,6 +9,7 @@ KAFKA_ADDRESS = os.environ["BOOTSTRAP_SERVERS"]
 
 RUNNING = False
 TIMEOUT = int(os.environ["TIMEOUT"])
+ERROR_WAIT_TIME = int(os.environ["ERROR_WAIT_TIME"])
 
 JOKES_URL = os.environ["JOKES_URL"]
 ONE_PART_JOKES_TOPIC = os.environ["ONE_PART_JOKES_TOPIC"]

@@ -38,6 +38,7 @@ data-collection = "src.app:main"
 env = [
     "BOOTSTRAP_SERVERS=localhost:9092",
     "TIMEOUT=5",
+    "ERROR_WAIT_TIME=3",
     "JOKES_URL=https://v2.jokeapi.dev/joke/Any",
     "ONE_PART_JOKES_TOPIC=one-part-jokes",
     "TWO_PART_JOKES_TOPIC=two-part-jokes",
