@@ -1,16 +1,22 @@
 <app-arthur-button></app-arthur-button>
-<div class="logoContainer">
-  <app-logo-component></app-logo-component>
+<div class="higher">
+  <div class="logoContainer">
+    <app-logo-component></app-logo-component>
+  </div>
+  <div class="searchbarContainer">
+    <app-searchbar></app-searchbar>
+  </div>
 </div>
-<div class="searchbarContainer">
-  <app-searchbar></app-searchbar>
-</div>
+<div class="lower">
+<hr class="topScrollBorder">
 <div class="dataDiv">
   <app-data-container *ngFor="let instance of data"
-  [title]="instance.title"
+  [type]="instance.type"
+  [source]="instance.source"
   [content]="instance.content"
-  [type]="instance.type">
-
+  [published]="instance.published"
+  [tags]="instance.tags"
+  >
   </app-data-container>
 </div>
-
+</div>

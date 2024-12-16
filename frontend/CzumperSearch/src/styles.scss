@@ -11,9 +11,12 @@ html {
   background-color: $background;
   color: white;
   padding: 0px !important;
+  margin: 0px !important;
 }
 
 body {
-  padding: 0px;
+  padding: 0px !important;
+  margin: 0px !important;
   font-family: 'Teko', sans-serif;
+  overflow: hidden;
 }
