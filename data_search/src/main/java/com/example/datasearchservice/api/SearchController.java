@@ -17,10 +17,10 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @PostMapping("/")
-    public List<Resource> generalSearch(@RequestParam String searchPhrase) {
-        return searchService.generalSearch(searchPhrase);
-    }
+//    @PostMapping("/")
+//    public List<Resource> generalSearch(@RequestParam String searchPhrase) {
+//        return searchService.generalSearch(searchPhrase);
+//    }
 
     @PostMapping("/content")
     public List<Resource> searchByContent(@RequestParam String searchPhrase) {
