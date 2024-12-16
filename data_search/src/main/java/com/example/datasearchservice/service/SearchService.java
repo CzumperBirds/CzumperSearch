@@ -14,8 +14,7 @@ public class SearchService {
         this.repository = repository;
     }
 
-    @Cacheable(value = "employees", key = "#firstName")
-    public List<Employee> search(String firstName) {
-        return repository.findByFirstNameContaining(firstName);
+    public List<Employee> search(String searchPhrase) {
+        return repository.findByFirstNameContaining(searchPhrase);
     }
 }

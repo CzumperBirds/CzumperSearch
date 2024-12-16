@@ -15,7 +15,7 @@ services:
 
   spring-app:
     build:
-      context: .
+      context: ../../CzumpersSearch/data_search
       dockerfile: Dockerfile
     ports:
       - '8080:8080'

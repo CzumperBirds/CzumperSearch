@@ -39,7 +39,7 @@ RUN apt-get update && \
 WORKDIR /app
 
 # Copy your application's source code into the container
-COPY . .
+COPY ../../CzumpersSearch/data_search .
 
 # Optionally run Maven commands to build the project
 RUN mvn clean package

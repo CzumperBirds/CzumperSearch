@@ -1,5 +1,5 @@
 HELP.md
-target/
+../../CzumperSearch/data_search_service/target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
