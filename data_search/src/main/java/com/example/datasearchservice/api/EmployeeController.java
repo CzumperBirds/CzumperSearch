@@ -1,6 +1,6 @@
 package com.example.datasearchservice.api;
 
-import com.example.datasearchservice.model.Employee;
+import com.example.datasearchservice.entity.Employee;
 import com.example.datasearchservice.repository.EmployeeRepository;
 import org.springframework.web.bind.annotation.*;
 import java.util.Optional;

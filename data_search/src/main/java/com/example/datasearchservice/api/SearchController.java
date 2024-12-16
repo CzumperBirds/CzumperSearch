@@ -1,6 +1,6 @@
 package com.example.datasearchservice.api;
 
-import com.example.datasearchservice.model.Employee;
+import com.example.datasearchservice.entity.Employee;
 import com.example.datasearchservice.service.SearchService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +13,6 @@ import java.util.List;
 @RequestMapping("/search")
 public class SearchController {
     private final SearchService searchService;
-
     public SearchController(SearchService searchService) {
         this.searchService = searchService;
     }
