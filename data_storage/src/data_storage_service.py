@@ -1,20 +1,8 @@
-from kafka import KafkaConsumer, TopicPartition
-from elastic_handler import ElasticsearchHandler
+from kafka import KafkaConsumer
 import json
-import time
+from elastic_handler import ElasticsearchHandler
 from pprint import pprint
 
-
-class Message:
-    def __init__(self, key, value, partition, offset):
-        self.key = key
-        self.value = value
-        self.partition = partition
-        self.offset = offset
-
-    def __repr__(self) -> str:
-        return f"Message(key={self.key}, value={self.value}, partition={self.partition}, offset={self.offset})"
-    
 class KafkaHandler:
     """Handles Kafka consumer setup and operations."""
     
@@ -24,7 +12,6 @@ class KafkaHandler:
         self.group_id = group_id
         self.auto_offset_reset = auto_offset_reset
         self.consumer = None
-        
 
     def setup_consumer(self, value_deserializer, key_deserializer):
         """Initializes the Kafka consumer."""
@@ -39,96 +26,66 @@ class KafkaHandler:
         )
         return self.consumer
 
-    @staticmethod
-    def wait_for_kafka(consumer, retries=2, delay=1):
-        """Waits for Kafka to be ready, retrying if necessary."""
-        for _ in range(retries):
-            try:
-                consumer.poll(timeout_ms=1000)
-                return True
-            except Exception as e:
-                print(f"Waiting for Kafka... Error: {e}")
-                time.sleep(delay)
-        return False
-
-    def consume_messages(self, max_messages=None):
+    def consume_messages(self):
         """Consumes messages from the Kafka topic."""
         if not self.consumer:
             raise RuntimeError("Consumer has not been set up. Call setup_consumer first.")
         
-        if self.wait_for_kafka(self.consumer):
-            print("Connected to Kafka.")
-            self.read_from_begining()
-            
-            idx = 0
-            for message in self.consumer:
-                msg = Message(message.key, message.value, message.partition, message.offset)
-                yield msg
-                # print("Message key:", message.key)
-                # print("Message value:", message.value)
-                
-                idx += 1
-                if max_messages and idx >= max_messages:
-                    print(f"Consumed {idx} messages. Stopping.")
-                    return None
-            return True
-        else:
-            print("Failed to connect to Kafka.")
+        for message in self.consumer:
+            yield {
+                "key": message.key,
+                "value": message.value,
+                "partition": message.partition,
+                "offset": message.offset
+            }
 
-    @staticmethod
-    def consumer_from_offset(topic, group_id, offset, bootstrap_servers):
-        """Returns a consumer initialized to a specific offset."""
-        consumer = KafkaConsumer(bootstrap_servers=bootstrap_servers, group_id=group_id)
-        tp = TopicPartition(topic=topic, partition=0)
-        consumer.assign([tp])
-        consumer.seek(tp, offset)
-        return consumer
+
+def process_and_index_message(topic, message, es_handler):
+    """Processes a message based on its topic and indexes it into Elasticsearch."""
+    if topic == "processed-resources":
+        value = message["value"]
+        document = {
+            "type": value.get("type"),
+            "source": value.get("source"),
+            "content": value.get("content"),
+            "published": value.get("published"),
+            "tags": value.get("tags")
+        }
+        index_name = "processed-resources"
     
-    def read_from_begining(self, topic=None):
-        self.consumer.subscribe([self.topic])
-        self.consumer.seek_to_beginning()
-        print(f"Subscribed to topic: {self.consumer.subscription()}")
+    else:
+        print(f"Unknown topic: {topic}")
+        return None
+    
+    return es_handler.index_message(index_name, document)
 
-
-    def close_consumer(self):
-        """Closes the Kafka consumer."""
-        if self.consumer:
-            self.consumer.close()
-            print("Consumer closed...")
 
 def main():
     """Main function to initialize and run Kafka consumer."""
-    topic = 'piwo'
+    topics = ['processed-resources']
     bootstrap_servers = 'kafka:9092'
     group_id = 'data-storage-service-group'
     elasticsearch_url = "http://elasticsearch:9200"
     
-    kafka_handler = KafkaHandler(topic, bootstrap_servers, group_id)
-    
     es_handler = ElasticsearchHandler(elasticsearch_url)
-
-    kafka_handler.setup_consumer(
-        value_deserializer=lambda x: json.loads(x.decode('utf-8')),
-        key_deserializer=lambda x: x.decode('utf-8')
-    )
     
-    print("Consuming messages:")
-    
-    for message in kafka_handler.consume_messages(max_messages=3):
-        print(f"Consuming message: {message}")
+    for topic in topics:
+        kafka_handler = KafkaHandler(topic, bootstrap_servers, group_id)
+        kafka_handler.setup_consumer(
+            value_deserializer=lambda x: json.loads(x.decode('utf-8')),
+            key_deserializer=lambda x: x.decode('utf-8') if x else None
+        )
         
-        es_response = es_handler.index_message(message)
-        print(f"Indexed to Elasticsearch: {es_response}")
-    
-    kafka_handler.close_consumer()
-
-    out = es_handler.search_all()
-
-    print("Search response:")
-    for hit in out['hits']['hits']:
-        pprint(hit)
-    # print(out)
+        print(f"Consuming messages from topic: {topic}")
+        
+        for message in kafka_handler.consume_messages():
+            print(f"Processing message: {message}")
+            
+            es_response = process_and_index_message(topic, message, es_handler)
+            if es_response:
+                print(f"Indexed to Elasticsearch: {es_response}")
+        
+        kafka_handler.close_consumer()
 
 if __name__ == "__main__":
-    print("START FILE\n")
     main()
