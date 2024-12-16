@@ -1,13 +1,11 @@
 package com.example.datasearchservice.api;
 
-import com.example.datasearchservice.entity.Employee;
+import com.example.datasearchservice.entity.Resource;
+import com.example.datasearchservice.models.AdvancedSearchDTO;
 import com.example.datasearchservice.service.SearchService;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -19,9 +17,24 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-    @GetMapping("/{searchPhrase}")
-    @Cacheable(value = "employees", key = "#searchPhrase")
-    public List<Employee> search(@PathVariable("searchPhrase") String searchPhrase) {
-        return searchService.search(searchPhrase);
+    @PostMapping("/")
+    public List<Resource> generalSearch(@RequestParam String searchPhrase) {
+        return searchService.generalSearch(searchPhrase);
     }
+
+    @PostMapping("/content")
+    public List<Resource> searchByContent(@RequestParam String searchPhrase) {
+        return searchService.searchByContent(searchPhrase);
+    }
+
+    @PostMapping("/tags")
+    public List<Resource> searchByTags(@RequestBody List<String> searchTags) {
+        return searchService.searchByTags(searchTags);
+    }
+
+    @PostMapping("/advanced")
+    public List<Resource> advancedSearch(@RequestBody AdvancedSearchDTO searchDTO) {
+        return searchService.advancedSearch(searchDTO.content, searchDTO.tags);
+    }
+
 }

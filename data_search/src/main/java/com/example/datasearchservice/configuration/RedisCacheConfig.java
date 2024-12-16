@@ -17,7 +17,7 @@ public class RedisCacheConfig {
         return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig())
                 .transactionAware()
-                .withInitialCacheConfigurations(Collections.singletonMap("employees", cacheConfiguration()))
+                .withInitialCacheConfigurations(Collections.singletonMap("resources", cacheConfiguration()))
                 .build();
     }
     private RedisCacheConfiguration cacheConfiguration() {
