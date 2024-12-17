@@ -2,5 +2,31 @@
   display: flex;
   width: 100%;
   justify-content: center;
-  margin-top: 50px;
+  margin-top: 5vh;
+}
+
+.higher {
+  height: 15vh;
+  min-height: 150px;
+}
+
+.lower {
+  height: 80vh;
+}
+
+.dataDiv {
+  height: 80vh;
+  min-height: 400px;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.dataDiv::-webkit-scrollbar {
+  display: none;
+}
+
+hr {
+  padding: 0px !important;
+  margin: 0px !important;
 }

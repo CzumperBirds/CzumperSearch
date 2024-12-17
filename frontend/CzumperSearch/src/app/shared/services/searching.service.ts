@@ -2,16 +2,22 @@ import { Injectable } from '@angular/core';
 import { DataInstance } from '../interfaces/dataInstance.model';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
-
+import { pickupLines } from '../mocks/mockedJokes';
 @Injectable({
   providedIn: 'root'
 })
 export class SearchingService {
 
+  getMockData() {
+    return pickupLines
+  }
+
   private foundData : BehaviorSubject<Array<DataInstance>> = new BehaviorSubject<Array<DataInstance>>([ {
-    title: "Piwo",
-    content: "Lubię piwo",
-    type: "fact"
+    type: "joke",
+    source: "Google",
+    content: "Jesteś może małym AGD? Bo kręcisz mnie jak mikrofalówka talerz.",
+    published: "28.07.1742 21:37:00",
+    tags: ["Dark","Nose","AgataMeble","EightStars"]
   }]);
 
   constructor() {
@@ -27,28 +33,7 @@ export class SearchingService {
       setTimeout(() => {
         const success = true;
         if (success) {
-          this.foundData.next([
-            {
-              title: "Piwo",
-              content: "Lubię piwo",
-              type: "fact"
-            },
-            {
-              title: "Nos kacpra",
-              content: "Kacper nie ma długiego nosa",
-              type: "joke"
-            },
-            {
-              title: "Nos Kacpra",
-              content: "Kacper ma długi nos",
-              type: "fact"
-            },
-            {
-              title: "Komputer Artura",
-              content: "Ten serwis będzie działał do momentu w którym zacznie padać śnieg",
-              type: "fact"
-            }
-          ]);
+          this.foundData.next(this.getMockData());
           resolve("Operation was successful!");
         } else {
           reject("Something went wrong!");

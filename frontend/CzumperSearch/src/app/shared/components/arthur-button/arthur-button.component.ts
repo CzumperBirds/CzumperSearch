@@ -26,7 +26,7 @@ export class ArthurButtonComponent implements OnInit{
   }
 
   ngOnInit(): void {
-      this.updateStatus()
+      // this.updateStatus()
   }
 
   async updateStatus() {

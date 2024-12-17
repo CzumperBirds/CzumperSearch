@@ -1,9 +1,14 @@
 <div class="instanceContainer">
   <div class="topBar">
-    <div class="titlePart"><p>{{title}}</p></div>
-    <div class="typePart"><p>Type: <b>{{type}}</b></p></div>
+    <div class="titlePart"><p>{{source}}</p></div>
+    <div class="typePart"><p>Date: <b>{{published}}</b></p></div>
   </div>
   <div class="contentContainer">
     <p>{{content}}</p>
-    </div>
+  </div>
+  <div class="tags">
+    <span class='tag' *ngFor="let tag of tags">
+    {{tag}}
+    </span>
+  </div>
 </div>
