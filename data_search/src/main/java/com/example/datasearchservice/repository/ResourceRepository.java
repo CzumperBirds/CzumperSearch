@@ -15,7 +15,6 @@ public interface ResourceRepository extends ElasticsearchRepository<Resource, St
     @Query("{\"terms\": {\"tags\": ?0}}")
     List<Resource> findByTagsContaining(List<String> tags);
 
-
     @Query("""
             {
               "bool": {
@@ -23,7 +22,7 @@ public interface ResourceRepository extends ElasticsearchRepository<Resource, St
                   {
                     "terms": {
                       "tags": #{#tags}
-                    }   
+                    }
                   },
                   {
                     "multi_match": {

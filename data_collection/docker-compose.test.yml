@@ -16,7 +16,7 @@ services:
       - traefik-public
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.cs-data-collection-test.rule=Host(`api-test.czumpers.com`)"
+      - "traefik.http.routers.cs-data-collection-test.rule=Host(`api-test.czumpers.com`) && PathPrefix(`/api/v1/data-collection`)"
       - "traefik.http.routers.cs-data-collection-test.entrypoints=websecure"
       - "traefik.http.routers.cs-data-collection-test.tls.certresolver=myresolver"
       - "com.centurylinklabs.watchtower.enable=true"
