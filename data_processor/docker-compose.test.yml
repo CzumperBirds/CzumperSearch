@@ -19,9 +19,9 @@ services:
       - data_processor_network-test
 
 networks:
+  data_processor_network-test:
   kafka-test:
     external: true
-  data_processor_network-test:
 
 volumes:
   mongo-data:
