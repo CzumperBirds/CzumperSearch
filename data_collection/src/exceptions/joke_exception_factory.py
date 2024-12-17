@@ -2,13 +2,20 @@
 
 from datetime import datetime
 
+from requests import Response
 
-def get_joke_api_exception(response: dict, headers: dict) -> Exception:
+
+def get_joke_api_exception(response: Response) -> Exception:
     """Get the appropriate exception based on the response."""
-    error_message = response.get("message", "An error occurred with the joke API.")
-    code = int(response.get("code", 500))
-    timestamp = datetime.fromtimestamp(response.get("timestamp") / 1000).strftime("%Y-%m-%d %H:%M:%S")
-    info = response.get("additionalInfo", "No additional information available.")
+    body = response.json()
+    error_message = body.get("message", "An error occurred with the joke API.")
+    code = int(body.get("code", 500))
+    raw_timestamp = body.get("timestamp")
+    if raw_timestamp is not None:
+        timestamp = datetime.fromtimestamp(raw_timestamp / 1000).strftime("%Y-%m-%d %H:%M:%S")
+    else:
+        timestamp = None
+    info = body.get("additionalInfo", "No additional information available.")
 
     exception_map = {
         101: TooManyRequestsException,
@@ -25,7 +32,11 @@ def get_joke_api_exception(response: dict, headers: dict) -> Exception:
     exception_class = exception_map.get(code, JokeAPIException)
     print(f"Exception class: {exception_class}")
     return exception_class(
-        message=error_message, code=code, timestamp=timestamp, retry_after=headers.get("Retry-After"), info=info
+        message=error_message,
+        code=code,
+        timestamp=timestamp,
+        retry_after=response.headers.get("Retry-After"),
+        info=info,
     )
 
 
