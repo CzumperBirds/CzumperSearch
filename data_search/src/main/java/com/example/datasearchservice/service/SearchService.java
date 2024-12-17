@@ -25,6 +25,7 @@ public class SearchService {
     @Cacheable(value = "searchCache", key = "#searchPhrase")
     public List<Resource> generalSearch(String searchPhrase) {
         AdvancedSearchDTO searchDTO = new AdvancedSearchDTO();
+        searchPhrase = searchPhrase.toLowerCase();
         searchDTO.content = searchPhrase;
         searchDTO.tags = List.of(searchPhrase.split(" "));
         return repository.findByTagsOrContent(searchDTO.tags, searchDTO.content);
