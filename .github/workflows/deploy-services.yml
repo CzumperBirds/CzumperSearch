@@ -31,13 +31,13 @@ jobs:
         with:
           filters: |
             frontend: 
-              - "frontend/**"
+              - "frontend/**/*"
             data_collection:
-              - "data_collection/**"
+              - "data_collection/**/*"
             data_processor:
-              - "data_processor/**"
+              - "data_processor/**/*"
             data_storage:
-              - "data_storage/**"
+              - "data_storage/**/*"
 
   deploy-frontend:
     if: ${{ needs.filter.outputs.frontend-changed == 'true' }}
