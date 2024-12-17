@@ -11,5 +11,5 @@ def get_joke_response(joke_type: str) -> dict:
     response = requests.get(JOKES_URL, timeout=TIMEOUT, params=params)
     error_occured = response.json().get("error", False)
     if error_occured:
-        raise get_joke_api_exception(response.json(), response.headers)
+        raise get_joke_api_exception(response)
     return response.json()

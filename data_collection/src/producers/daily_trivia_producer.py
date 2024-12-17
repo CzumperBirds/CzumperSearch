@@ -4,19 +4,32 @@ import json
 import time
 from contextlib import closing
 from kafka import KafkaProducer
-from src.context.trivia_context_manager import trivia_response_manager
-import src.config
-from src.config import KAFKA_ADDRESS, DAILY_TRIVIA_TOPIC
+from src.config import ERROR_WAIT_TIME, KAFKA_ADDRESS, DAILY_TRIVIA_TOPIC
+from src.exceptions.trivia_exceprion_factory import EmptyFeedException, RSSParseException
+from src.rss.daily_trivia import get_article_response
+from src.utils.events import collection_paused
 
 
 def article_generator():
     """Yield articles from the RSS feed."""
-    while src.config.RUNNING:
-        with trivia_response_manager() as article:
-            if article:
-                yield article
-            else:
-                break
+    while True:
+        collection_paused.wait()
+        try:
+            yield get_article_response()
+        except EmptyFeedException as e:
+            print(f"RSS feed is empty: {e}")
+            print("Details:", e.details)
+            print(f"Retrying after {ERROR_WAIT_TIME} seconds.")
+            time.sleep(ERROR_WAIT_TIME)
+        except RSSParseException as e:
+            print(f"Failed to parse RSS feed: {e}")
+            print("Details:", e.details)
+            print(f"Retrying after {ERROR_WAIT_TIME} seconds.")
+            time.sleep(ERROR_WAIT_TIME)
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}")
+            print(f"Retrying after {ERROR_WAIT_TIME} seconds.")
+            time.sleep(ERROR_WAIT_TIME)
 
 
 def produce_trivia_fun_facts():
@@ -32,4 +45,5 @@ def produce_trivia_fun_facts():
             kafka.flush()
             print("Trivia fun fact produced.")
             time.sleep(2)
+        kafka.close()
         print("Goodbye from the trivia fun facts producer.")

@@ -1,12 +1,24 @@
 """Main application file to control the producers."""
 
+from contextlib import asynccontextmanager
 from fastapi import FastAPI, APIRouter
 from fastapi.middleware.cors import CORSMiddleware
 from src.model.api import Action, ControlRequest, StatusResponse
-from src.utils.producer_manager import start_producers, stop_producers
+from src.utils.producer_manager import init_producers, start_producers, pause_producers
 import src.config
 
-app = FastAPI()
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Start and stop producers when the application starts and stops."""
+    try:
+        init_producers()
+        yield
+    finally:
+        pause_producers()
+
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -20,6 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 router = APIRouter(prefix="/api/v1/data-collection")
 
 
@@ -31,7 +44,7 @@ async def control_producers(request: ControlRequest) -> StatusResponse:
             start_producers()
 
         case Action.STOP:
-            stop_producers()
+            pause_producers()
 
     return StatusResponse(is_running=src.config.RUNNING)
 
