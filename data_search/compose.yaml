@@ -1,14 +1,29 @@
 services:
-  elasticsearch:
-    image: 'docker.elastic.co/elasticsearch/elasticsearch:7.17.10'
-    environment:
-      - 'ELASTIC_PASSWORD=secret'
-      - 'discovery.type=single-node'
-      - 'xpack.security.enabled=false'
-    ports:
-      - '9200:9200'
-      - '9300'
   redis:
     image: 'redis:latest'
     ports:
       - '6379:6379'
+    networks:
+      - search
+
+  data-search:
+    build:
+      context: ../../CzumperSearch/data_search
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    depends_on:
+      - redis
+    networks:
+      - elknet
+      - search
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      SPRING_ELASTICSEARCH_HOST: elasticsearch
+
+networks:
+  search:
+    external: false
+  elknet:
+    external: true
