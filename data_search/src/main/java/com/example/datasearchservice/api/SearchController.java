@@ -22,6 +22,14 @@ public class SearchController {
 //        return searchService.generalSearch(searchPhrase);
 //    }
 
+    @PostMapping("/")
+    public List<Resource> generalSearch(@RequestParam String searchPhrase) {
+        AdvancedSearchDTO searchDTO = new AdvancedSearchDTO();
+        searchDTO.content = searchPhrase;
+        searchDTO.tags = List.of(searchPhrase.split(" "));
+        return searchService.generalSearch(searchDTO.content, searchDTO.tags);
+    }
+
     @PostMapping("/content")
     public List<Resource> searchByContent(@RequestParam String searchPhrase) {
         return searchService.searchByContent(searchPhrase);
@@ -30,11 +38,6 @@ public class SearchController {
     @PostMapping("/tags")
     public List<Resource> searchByTags(@RequestBody List<String> searchTags) {
         return searchService.searchByTags(searchTags);
-    }
-
-    @PostMapping("/advanced")
-    public List<Resource> advancedSearch(@RequestBody AdvancedSearchDTO searchDTO) {
-        return searchService.advancedSearch(searchDTO.content, searchDTO.tags);
     }
 
 }
