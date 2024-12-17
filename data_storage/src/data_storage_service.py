@@ -25,7 +25,7 @@ class KafkaHandler:
             self.topic,
             bootstrap_servers=self.bootstrap_servers,
             auto_offset_reset=self.auto_offset_reset,
-            enable_auto_commit=False,
+            enable_auto_commit=True,
             group_id=self.group_id,
             value_deserializer=value_deserializer,
             key_deserializer=key_deserializer,

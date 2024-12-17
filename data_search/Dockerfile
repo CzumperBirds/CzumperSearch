@@ -1,29 +1,25 @@
-FROM ubuntu:20.04
+FROM maven:3.9.9-eclipse-temurin-23 AS build
 
-# Set environment variables to reduce interaction during setup
-ENV DEBIAN_FRONTEND=noninteractive
-
-# Update the package repository and install required packages
-RUN apt-get update && \
-    apt-get install -y openjdk-17-jdk maven curl git && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
-
-# Set the working directory inside the container
 WORKDIR /app
 
-# Copy your application's source code into the container
-COPY . /app
+COPY pom.xml .
+COPY src ./src
 
-COPY wait-for-elasticsearch.sh /app/wait-for-elasticsearch.sh
+RUN mvn clean package -DskipTests
+RUN mvn wrapper:wrapper
 
-# Optionally run Maven commands to build the project
-RUN mvn clean package
+FROM openjdk:23-jdk-slim
 
-#RUN chmod +x /app/wait-for-elasticsearch.sh
-#ENTRYPOINT ["wait-for-elasticsearch.sh"]
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y curl
+
+COPY --from=build /app/target/dataSearchService.jar app.jar
+
+COPY wait-for-elasticsearch.sh .
 
 EXPOSE 8080
 
-# Define the command to run your application
-CMD ["java", "-jar", "target/dataSearchService.jar"]
+ENTRYPOINT ["./wait-for-elasticsearch.sh"]
+
+CMD ["java", "-jar", "app.jar"]

@@ -1,0 +1,39 @@
+services:
+  redis:
+    image: "redis:latest"
+    container_name: "cs-data-search-redis-test"
+    networks:
+      - search-test
+    volumes:
+      - redis-data:/data
+
+  data-search:
+    image: docker.czumpers.com/cs-data-search:test
+    container_name: "cs-data-search-test"
+    depends_on:
+      - redis
+    networks:
+      - traefik-public
+      - elknet-test
+      - search-test
+    environment:
+      SPRING_REDIS_HOST: redis
+      SPRING_REDIS_PORT: 6379
+      ELASTICSEARCH_USERNAME: ${ELASTIC_USERNAME}
+      ELASTICSEARCH_PASSWORD: ${ELASTIC_PASSWORD}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.cs-search-test.rule=Host(`api-test.czumpers.com`) && PathPrefix(`/api/v1/search`)"
+      - "traefik.http.routers.cs-search-test.entrypoints=websecure"
+      - "traefik.http.routers.cs-search-test.tls.certresolver=myresolver"
+      - "com.centurylinklabs.watchtower.enable=true"
+
+networks:
+  search-test:
+  traefik-public:
+    external: true
+  elknet-test:
+    external: true
+
+volumes:
+  redis-data:
