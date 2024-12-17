@@ -2,6 +2,7 @@ package com.example.datasearchservice.repository;
 
 import com.example.datasearchservice.entity.Resource;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.elasticsearch.annotations.Query;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
@@ -14,6 +15,7 @@ public interface ResourceRepository extends ElasticsearchRepository<Resource, St
     @Query("{\"terms\": {\"tags\": ?0}}")
     List<Resource> findByTagsContaining(List<String> tags);
 
+
     @Query("""
             {
               "bool": {
@@ -21,7 +23,7 @@ public interface ResourceRepository extends ElasticsearchRepository<Resource, St
                   {
                     "terms": {
                       "tags": #{#tags}
-                    }
+                    }   
                   },
                   {
                     "multi_match": {

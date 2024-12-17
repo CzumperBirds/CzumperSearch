@@ -24,10 +24,7 @@ public class SearchController {
 
     @PostMapping("/")
     public List<Resource> generalSearch(@RequestParam String searchPhrase) {
-        AdvancedSearchDTO searchDTO = new AdvancedSearchDTO();
-        searchDTO.content = searchPhrase;
-        searchDTO.tags = List.of(searchPhrase.split(" "));
-        return searchService.generalSearch(searchDTO.content, searchDTO.tags);
+        return searchService.generalSearch(searchPhrase);
     }
 
     @PostMapping("/content")
