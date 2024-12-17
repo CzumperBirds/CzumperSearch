@@ -10,6 +10,7 @@ services:
       DAILY_TRIVIA_URL: https://www.reddit.com/r/todayilearned/.rss
       DAILY_TRIVIA_TOPIC: daily-trivia
       TIMEOUT: 5
+      ERROR_WAIT_TIME: 5
     networks:
       - kafka-test
       - traefik-public
