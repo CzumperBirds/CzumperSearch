@@ -34,7 +34,7 @@ This application collects data from various sources and produces messages to Kaf
 1. **Stop the message producing**:
     ```bash
     curl -X 'POST' \
-    'http://localhost:8000/control' \
+    'http://localhost:8000//api/v1/data-collection/control' \
     -H 'Content-Type: application/json' \
     -d '{"action": "stop"}'
     ```
@@ -42,7 +42,7 @@ This application collects data from various sources and produces messages to Kaf
 2. **Restart the message producing again**:
     ```bash
     curl -X 'POST' \
-    'http://localhost:8000/control' \
+    'http://localhost:8000//api/v1/data-collection/control' \
     -H 'Content-Type: application/json' \
     -d '{"action": "start"}'
     ```

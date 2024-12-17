@@ -9,11 +9,10 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.10"
 requests = "^2.32.3"
-kafka-python = "^2.0.2"
-six = "^1.16.0"
-kafka-python-ng = "^2.2.3"
+six = "^1.16"
 python-decouple = "^3.8"
 elasticsearch = "^8.16.0"
+kafka-python-ng = "^2.2.3"
 
 
 
