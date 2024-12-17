@@ -1,26 +1,30 @@
-FROM python:3.13-slim
+FROM python:3.13-slim AS builder
 
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    build-essential libpq-dev curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
-
-RUN pip install --no-cache poetry==1.8.4
-
-ENV PYTHONPATH=/app:/app/src:$PYTHONPATH
-
+ENV POETRY_VERSION=1.8.4
+RUN pip install "poetry==$POETRY_VERSION"
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock* /app/
+COPY pyproject.toml poetry.lock ./
 
-RUN poetry config virtualenvs.create false \
-    && poetry install
+RUN poetry export --without-hashes -o requirements.txt
 
-COPY . /app
+FROM python:3.13-slim AS deploy
 
-# COPY wait-for-elasticsearch.sh /wait-for-elasticsearch.sh
-RUN chmod +x /app//wait-for-elasticsearch.sh
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY --from=builder /app/requirements.txt ./
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+
+ENV PYTHONUNBUFFERED=1
+
 ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
 
-CMD ["poetry", "run", "python", "src/data_storage_service.py"]
+CMD ["python", "src/data_storage_service.py"]

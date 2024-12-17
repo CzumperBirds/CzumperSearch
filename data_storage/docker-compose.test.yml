@@ -1,0 +1,18 @@
+services:
+  data_storage_service:
+    image: docker.czumpers.com/cs-data-storage:test
+    container_name: cs-data-storage-test
+    networks:
+      - kafka-test
+      - elknet-test
+    environment:
+      ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
+      KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+      ELASTICSEARCH_URL: http://elasticsearch:9200
+
+networks:
+  kafka-test:
+    external: true
+  elknet-test:
+    external: true
