@@ -10,6 +10,8 @@ services:
       ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       ELASTICSEARCH_URL: http://elasticsearch:9200
+    labels:
+      - "com.centurylinklabs.watchtower.enable=true"
 
 networks:
   kafka-test:
