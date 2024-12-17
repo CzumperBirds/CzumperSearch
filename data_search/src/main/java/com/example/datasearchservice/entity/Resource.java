@@ -11,7 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-@Document(indexName = "resource")
+@Document(indexName = "processed-resources")
 public class Resource implements Serializable {
 
     @Serial
