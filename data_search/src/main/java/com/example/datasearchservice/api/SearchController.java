@@ -1,13 +1,18 @@
 package com.example.datasearchservice.api;
 
-import com.example.datasearchservice.entity.Resource;
-import com.example.datasearchservice.models.AdvancedSearchDTO;
-import com.example.datasearchservice.service.SearchService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Collections;
 import java.util.List;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.example.datasearchservice.entity.Resource;
+import com.example.datasearchservice.service.SearchService;
+
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/search")
 public class SearchController {
@@ -17,22 +22,17 @@ public class SearchController {
         this.searchService = searchService;
     }
 
-//    @PostMapping("/")
-//    public List<Resource> generalSearch(@RequestParam String searchPhrase) {
-//        return searchService.generalSearch(searchPhrase);
-//    }
-
-    @PostMapping("/")
+    @GetMapping
     public List<Resource> generalSearch(@RequestParam String searchPhrase) {
         return searchService.generalSearch(searchPhrase);
     }
 
-    @PostMapping("/content")
+    @GetMapping("/content")
     public List<Resource> searchByContent(@RequestParam String searchPhrase) {
         return searchService.searchByContent(searchPhrase);
     }
 
-    @PostMapping("/tags")
+    @GetMapping("/tags")
     public List<Resource> searchByTags(@RequestBody List<String> searchTags) {
         return searchService.searchByTags(searchTags);
     }
