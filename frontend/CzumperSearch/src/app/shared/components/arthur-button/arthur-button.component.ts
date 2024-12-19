@@ -17,9 +17,7 @@ export class ArthurButtonComponent implements OnInit{
   private dataSubscription: Subscription | undefined;
 
 
-  dcServiceStatusResponse : DcsApiResponse = {
-    is_running: false
-  };
+  dcServiceStatusResponse : DcsApiResponse = this.DscApi.getDCServiceStatus()
 
   dcsRunning : boolean = false;
   changeInProgress : boolean = true;
