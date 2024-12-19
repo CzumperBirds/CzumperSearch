@@ -3,42 +3,39 @@ import { DataInstance } from '../interfaces/dataInstance.model';
 import { BehaviorSubject } from 'rxjs';
 import { Observable } from 'rxjs';
 import { pickupLines } from '../mocks/mockedJokes';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
 export class SearchingService {
 
+  private baseUrl: string = 'https://api-test.czumpers.com/api/v1/search';
+
   getMockData() {
     return pickupLines
   }
 
-  private foundData : BehaviorSubject<Array<DataInstance>> = new BehaviorSubject<Array<DataInstance>>([ {
-    type: "joke",
-    source: "Google",
-    content: "Jesteś może małym AGD? Bo kręcisz mnie jak mikrofalówka talerz.",
-    published: "28.07.1742 21:37:00",
-    tags: ["Dark","Nose","AgataMeble","EightStars"]
-  }]);
+  private foundData : BehaviorSubject<Array<DataInstance>> = new BehaviorSubject<Array<DataInstance>>([]);
 
-  constructor() {
+  constructor(private http: HttpClient) {
   }
 
   bindDataSet(): Observable<Array<DataInstance>> {
     return this.foundData.asObservable();
   }
 
-  searchData() : Promise<unknown>{
+
+  getSearchData(searchString : string): Observable<any> {
+    const endpoint = `${this.baseUrl}?searchPhrase=${searchString}`;
+    console.log(endpoint)
+    return this.http.get<any>(endpoint);
+  }
+
+  searchData(searchString : string){
     console.log('Searching for data')
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const success = true;
-        if (success) {
-          this.foundData.next(this.getMockData());
-          resolve("Operation was successful!");
-        } else {
-          reject("Something went wrong!");
-        }
-      }, 2000);
+    this.getSearchData(searchString).subscribe({
+      next: (response) =>  this.foundData.next(response),
+      error: (error) => console.error('GET Error:', error),
     });
   }
 }

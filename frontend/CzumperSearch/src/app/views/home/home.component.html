@@ -10,13 +10,21 @@
 <div class="lower">
 <hr class="topScrollBorder">
 <div class="dataDiv">
-  <app-data-container *ngFor="let instance of data"
-  [type]="instance.type"
-  [source]="instance.source"
-  [content]="instance.content"
-  [published]="instance.published"
-  [tags]="instance.tags"
-  >
-  </app-data-container>
+  <ng-container *ngIf="data.length > 0 && data != undefined; else elseTemplate">
+    <app-data-container *ngFor="let instance of data"
+    [type]="instance.type"
+    [source]="instance.source"
+    [content]="instance.content"
+    [published]="instance.published"
+    [tags]="instance.tags"
+    >
+   </app-data-container>
+
+  </ng-container>
+  <ng-template #elseTemplate>
+    <h2 class= "wide">No data to display</h2>
+  </ng-template>
+
+
 </div>
 </div>
