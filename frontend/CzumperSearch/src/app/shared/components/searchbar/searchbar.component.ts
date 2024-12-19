@@ -20,7 +20,6 @@ export class SearchbarComponent {
 
   async searchForData(){
     this.searchService.searchData(this.searchString)
-    console.log("Data found")
   }
 
 }

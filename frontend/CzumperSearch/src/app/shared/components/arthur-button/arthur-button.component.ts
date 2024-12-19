@@ -2,11 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DcsApiService } from '../../services/dcs-api.service';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { DcsApiResponse } from '../../interfaces/dcsApiResponse.model';
 
-
-export interface DcsApiResponse {
-  is_running: false
-}
 @Component({
   selector: 'app-arthur-button',
   standalone: true,
@@ -16,17 +14,30 @@ export interface DcsApiResponse {
 })
 export class ArthurButtonComponent implements OnInit{
 
+  private dataSubscription: Subscription | undefined;
+
+
   dcServiceStatusResponse : DcsApiResponse = {
     is_running: false
   };
+
   dcsRunning : boolean = false;
   changeInProgress : boolean = true;
   constructor (private DscApi : DcsApiService){
 
   }
 
-  async ngOnInit(): Promise<any> {
+async  ngOnInit(): Promise<any> {
+    this.dataSubscription = this.DscApi.bindDataSet().subscribe((data) => {
+      this.dcServiceStatusResponse = data;
+    });
       await this.updateStatus()
+  }
+
+  ngOnDestroy(): void {
+    if (this.dataSubscription) {
+      this.dataSubscription.unsubscribe();
+    }
   }
 
   async updateStatus() {
@@ -35,10 +46,7 @@ export class ArthurButtonComponent implements OnInit{
   }
 
   async fetchData() {
-    this.DscApi.getDCServiceStatus().subscribe({
-      next: (response) =>  this.dcServiceStatusResponse = response,
-      error: (error) => console.error('GET Error:', error),
-    });
+    this.dcServiceStatusResponse  = this.DscApi.getDCServiceStatus()
   }
 
   async switchStatus(status: string){

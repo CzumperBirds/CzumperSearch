@@ -1,4 +1,4 @@
 <div class="searchbar">
-  <input type="text" name="searchText" id="searchText" class="searchInput" [(ngModel)]="searchString">
+  <input type="text" name="searchText" id="searchText" class="searchInput" [(ngModel)]="searchString" (keydown.enter)="searchForData()">
   <input type="button" value="Search" class="searchButton" (click)="searchForData()">
 </div>
