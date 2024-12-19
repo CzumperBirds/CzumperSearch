@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
 import { SearchingService } from '../../services/searching.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-searchbar',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule],
   templateUrl: './searchbar.component.html',
   styleUrl: './searchbar.component.scss'
 })
@@ -14,8 +16,10 @@ export class SearchbarComponent {
 
   }
 
+  searchString : string = ''
+
   async searchForData(){
-    this.searchService.searchData()
+    this.searchService.searchData(this.searchString)
     console.log("Data found")
   }
 

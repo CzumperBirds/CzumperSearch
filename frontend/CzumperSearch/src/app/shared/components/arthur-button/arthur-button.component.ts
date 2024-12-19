@@ -25,8 +25,8 @@ export class ArthurButtonComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
-      // this.updateStatus()
+  async ngOnInit(): Promise<any> {
+      await this.updateStatus()
   }
 
   async updateStatus() {
@@ -44,7 +44,7 @@ export class ArthurButtonComponent implements OnInit{
   async switchStatus(status: string){
     this.DscApi.postData({'action': status}).subscribe({
       next: (response) =>  this.dcServiceStatusResponse = response,
-      error: (error) => console.error('GET Error:', error),
+      error: (error) => console.error('POST Error:', error),
     });
   }
 }
