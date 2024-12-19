@@ -12,7 +12,7 @@ services:
 
   mongo:
     image: mongo:6.0
-    container_name: mongo-test
+    container_name: cs-data-processor-mongo-test
     volumes:
       - mongo-data:/data/db
     networks:
