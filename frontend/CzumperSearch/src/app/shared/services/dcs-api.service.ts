@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { DcsApiResponse } from '../interfaces/dcsApiResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,12 +9,25 @@ import { Observable } from 'rxjs';
 export class DcsApiService {
   private baseUrl: string = 'https://api-test.czumpers.com/api/v1/data-collection';
 
+  private dscStatus : BehaviorSubject<DcsApiResponse> = new BehaviorSubject<DcsApiResponse>(this.getDCServiceStatus());
+
   constructor(private http: HttpClient) {}
 
-  getDCServiceStatus(): Observable<any> {
+  bindDataSet(): Observable<DcsApiResponse> {
+      return this.dscStatus.asObservable();
+    }
+
+  getDCServiceStatus() : any {
     const endpoint = `${this.baseUrl}/status`;
     console.log(endpoint)
-    return this.http.get<any>(endpoint);
+    let returnData
+    let responseData = this.http.get<any>(endpoint);
+    responseData.subscribe({
+      next: (response) =>  returnData = response,
+      error: (error) => console.error('GET Error:', error),
+    });
+    console.log(returnData)
+    return returnData
   }
 
   postData(body: any): Observable<any> {
