@@ -14,6 +14,9 @@ This application collects data from various sources and produces messages to Kaf
 - Kafka
 - Docker (for containerization)
 
+**Note**: In order to run this service, Kafka needs to be turned on. The manual on how to do this is placed inside the `infrastructure` directory in the [README.md](../infrastructure/README.md).
+
+
 ## Installation
 
 1. **Clone the repository**:
@@ -22,27 +25,46 @@ This application collects data from various sources and produces messages to Kaf
     cd data_collection
     ```
 
+2. **Install dependencies**:
+    ```sh
+    make install
+    ```
+
+3. **Run tests**:
+    ```sh
+    make test
+    ```
+
 ## Running with Docker
 
 1. **Build and run the Docker image**:
-    ```bash
-    docker compose -f docker-compose.dev.yml up -d --build
+    ```sh
+    make build
     ```
+
+    ![alt text](docs/image.png)
+
+    This should appear in the Docker console. The service is ready for user commands.
 
 ## Managing the process of message factory
 
-1. **Stop the message producing**:
-    ```bash
-    curl -X 'POST' \
-    'http://localhost:8000//api/v1/data-collection/control' \
-    -H 'Content-Type: application/json' \
-    -d '{"action": "stop"}'
+1. **Start/restard the message producing**:
+    ```sh
+    make start
     ```
+    Example behaviour:
+    ![alt text](docs/image1.png)
 
-2. **Restart the message producing again**:
-    ```bash
-    curl -X 'POST' \
-    'http://localhost:8000//api/v1/data-collection/control' \
-    -H 'Content-Type: application/json' \
-    -d '{"action": "start"}'
+2. **Stop the message producing**:
+    ```sh
+    make stop
     ```
+    Example behaviour:
+    ![alt text](docs/image2.png)
+
+3. **Check the status of the service**
+    ```sh
+    make status
+    ```
+    Example answer:
+    ![alt text](docs/image3.png)
