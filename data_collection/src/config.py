@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 # import hvac
 
 # VAULT_ADDR = "http://vault:8200"
-# VAULT_TOKEN = "hvs.2wLg19vOQpqQ71impvejhyYg"
+# VAULT_TOKEN = "..."
 # SECRET_PATH = "kv/data/data_collection"
 
 # client = hvac.Client(url=VAULT_ADDR, token=VAULT_TOKEN)
