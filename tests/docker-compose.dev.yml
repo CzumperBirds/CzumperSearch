@@ -1,0 +1,13 @@
+services:
+  test-environment:
+    build:
+      context: .
+    container_name: test-container
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092  # Kafka broker's address in the network
+    networks:
+      - kafka
+
+networks:
+  kafka:
+    external: true
