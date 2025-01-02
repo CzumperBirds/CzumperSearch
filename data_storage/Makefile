@@ -4,13 +4,18 @@ DOCKER_COMPOSE_FILE=docker-compose.dev.yml
 up:
 	docker compose -f $(DOCKER_COMPOSE_FILE) up -d --build
 
+upv:
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build
+
 install:
 	poetry shell
 	poetry install
 
 down:
-	@docker compose down -v --remove-orphans
+	docker compose -f $(DOCKER_COMPOSE_FILE) down
 
+clear:
+	docker compose -f $(DOCKER_COMPOSE_FILE) down -v --remove-orphans
 
 elk_indicies:
 	@curl -X GET "localhost:9200/_cat/indices?v"
