@@ -1,0 +1,22 @@
+services:
+    vault:
+      image: hashicorp/vault:latest
+      volumes:
+        - ./vault/config:/vault/config
+        - ./vault/policies:/vault/policies
+        - ./vault/data:/vault/data
+      ports:
+        - 8200:8200
+      environment:
+        - VAULT_ADDR=http://0.0.0.0:8200
+        - VAULT_API_ADDR=http://0.0.0.0:8200
+        - VAULT_ADDRESS=http://0.0.0.0:8200
+      cap_add:
+        - IPC_LOCK
+      networks:
+        - kafka
+      command: vault server -config=./vault/config/vault.json
+
+networks:
+  kafka:
+    external: true
