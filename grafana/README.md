@@ -15,9 +15,9 @@ Official documentation guide:
     
 >https://grafana.com/docs/plugins/grafana-github-datasource/latest/setup/token/
 
-2. Then you need to create **.env** file in the grafana directory ''**/grafana/.env**'':
+2. Then you need to update **.env** file in the grafana directory ''**/grafana/.env**'':
 
-- copy and modify template below:
+Paste here your password and copied github-token created in previous step
 ```shell
 # .env
 GF_SECURITY_ADMIN_PASSWORD=<password_for_admin_grafana> # <--
@@ -26,7 +26,7 @@ GF_GITHUB_TOKEN=<your_token_from_step_1> # <--
 GF_GITHUB_OWNER=CzumperBirds
 GF_GITHUB_REPO=CzumperSearch
 ```
-Login to grafana(default): admin
+Login and password to grafana(default): admin
 
 
 ## Usage - (Start Up)
