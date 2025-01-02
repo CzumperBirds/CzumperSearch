@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
+import { SearchingService } from '../../services/searching.service';
 
 @Component({
   selector: 'app-data-container',
@@ -15,5 +16,14 @@ export class DataContainerComponent{
   @Input() content : string = '';
   @Input() published : string = '';
   @Input() tags : Array<string> = [];
+
+  constructor (private searchService : SearchingService){
+
+  }
+
+
+  async searchForData(searchString: string){
+    this.searchService.searchData(searchString)
+  }
 
 }
