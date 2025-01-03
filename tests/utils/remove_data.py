@@ -12,7 +12,7 @@ def delete_data_from_es():
     # Connect to Elasticsearch instance using environment variables
     es = Elasticsearch(
         [f'http://{es_host}:{es_port}'],
-        http_auth=(es_username, es_password)
+        http_auth=(es_username, es_password) if es_username and es_password else None,
     )
 
     # Index name to delete the data from
