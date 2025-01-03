@@ -36,9 +36,5 @@ cd ..
 #echo -e "${GREEN}[3/3] Cleaning up Elasticsearch database...${NC}"
 #python3 utils/remove_data.py
 
-echo -e "${GREEN}Cleaning up Docker Compose services...${NC}"
-docker compose down  # This will stop and remove containers, networks, and volumes
-
-
 # All tests passed
 echo -e "${GREEN}All tests passed successfully!${NC}"

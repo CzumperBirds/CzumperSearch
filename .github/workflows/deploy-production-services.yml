@@ -44,6 +44,10 @@ jobs:
         run: |
           docker-compose -f tests/docker-compose.test.yml up
 
+      - name: Stop and remove containers (cleanup)
+        run: |
+          docker-compose down
+
   deploy-frontend:
     runs-on: ubuntu-latest
     needs: e2e-test
