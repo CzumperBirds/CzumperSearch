@@ -37,7 +37,7 @@ cd ..
 #python3 utils/remove_data.py
 
 echo -e "${GREEN}Cleaning up Docker Compose services...${NC}"
-docker-compose down  # This will stop and remove containers, networks, and volumes
+docker compose down  # This will stop and remove containers, networks, and volumes
 
 
 # All tests passed
