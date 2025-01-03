@@ -8,6 +8,7 @@ services:
     networks:
       - kafka-test
       - elknet-test
+      - traefik-public
 
 networks:
   kafka-test:

@@ -1,6 +1,6 @@
 describe('template spec', () => {
   it('passes', () => {
-    cy.visit('search-test.czumpers.com');
+    cy.visit('https://search-test.czumpers.com/');
 
     // 1. Select the input element with name="searchText" and fill it with the "testsearch" value
     cy.get('input[name="searchText"]').type('randomtestdata');
