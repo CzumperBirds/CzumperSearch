@@ -4,7 +4,7 @@ from requests.exceptions import RequestException
 
 def delete_data_from_es():
     # Read Elasticsearch connection details from environment variable
-    es_host = os.getenv('ELASTICSEARCH_HOST', 'localhost')
+    es_host = os.getenv('ELASTICSEARCH_HOST', 'elasticsearch')
     es_port = os.getenv('ELASTICSEARCH_PORT', 9200)
 
     # Connect to Elasticsearch instance using environment variables

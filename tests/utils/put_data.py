@@ -8,7 +8,7 @@ import random
 def create_daily_trivia_data():
     trivia_data = {
         "id": f"trivia-{random.randint(1, 10000)}",
-        "title": "Fun Trivia Title",
+        "title": "randomtestdata",
         "link": "https://example.com/trivia-link",
         "author": "Trivia Author",
         "published": datetime.now().isoformat(),  # ISO 8601 format for current datetime

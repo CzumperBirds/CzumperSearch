@@ -4,10 +4,13 @@ services:
       context: .
     container_name: test-container
     environment:
-      - BOOTSTRAP_SERVERS=kafka:9092  # Kafka broker's address in the network
+      - BOOTSTRAP_SERVERS=kafka:9092
     networks:
       - kafka
+      - elknet
 
 networks:
   kafka:
+    external: true
+  elknet:
     external: true

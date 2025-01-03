@@ -4,23 +4,8 @@ COMPOSE_DIRECTORIES=(
     "../data_processor"
     "../data_storage"
     "../data_search"
+    "../frontend/CzumperSearch"
 )
-
-cleanup_docker_resources() {
-    echo "Stopping all running Docker containers..."
-    docker stop $(docker ps -aq) 2>/dev/null || echo "No containers running."
-
-    echo "Removing all Docker containers..."
-    docker rm $(docker ps -aq) 2>/dev/null || echo "No containers to remove."
-
-    echo "Removing all Docker images..."
-    docker rmi $(docker images -q) -f 2>/dev/null || echo "No images to remove."
-
-    echo "Removing all unused volumes..."
-    docker volume prune -f || echo "No volumes to prune."
-
-    echo "All Docker resources have been cleaned."
-}
 
 # Function to run docker-compose in a given directory
 run_docker_compose() {
@@ -41,18 +26,12 @@ run_docker_compose() {
     fi
 }
 
-
-cleanup_docker_resources
-
 run_docker_compose "../infrastructure"
 
-./wait-for-elasticsearch.sh
+/bin/bash wait-for-elasticsearch.sh
 
 for dir in "${COMPOSE_DIRECTORIES[@]}"; do
     run_docker_compose "$dir"
 done
 
 echo "All Docker Compose services have been started."
-
-sleep 10
-

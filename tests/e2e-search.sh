@@ -18,7 +18,7 @@ sleep 5
 # Step 2: Run frontend tests
 echo -e "${GREEN}[3/4] Running Cypress frontend tests...${NC}"
 cd frontend
-npx cypress run --spec "tests/cypress/test_search.ts"
+npx cypress run
 cd ..
 
 # Step 3: Clean up Docker containers
@@ -26,8 +26,8 @@ echo -e "${GREEN}[3/4] Clean up Elasticsearch database...${NC}"
 python3 utils/remove_data.py
 
 # Step 4: Clean up Docker containers
-echo -e "${GREEN}[4/4] Cleaning up Docker containers...${NC}"
-docker compose down
+#echo -e "${GREEN}[4/4] Cleaning up Docker containers...${NC}"
+#docker compose down
 
 # All tests passed
 echo -e "${GREEN}All tests passed successfully!${NC}"
