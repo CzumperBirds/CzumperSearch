@@ -8,12 +8,12 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No color
 
-#error_handler() {
-#  echo -e "${RED}An error occurred at line $1 while executing: $2${NC}"
-#  exit 1
-#}
-#
-#trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
+error_handler() {
+  echo -e "${RED}An error occurred at line $1 while executing: $2${NC}"
+  exit 1
+}
+
+trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
 
 echo -e "${GREEN}Starting end-to-end tests...${NC}"
 
@@ -28,11 +28,17 @@ sleep 5
 echo -e "${GREEN}[2/3] Running Cypress frontend tests...${NC}"
 cd frontend
 npx cypress run
+echo "Cypress exit code: $?"
 cd ..
+
 
 ## Step 3: Clean up Elasticsearch database
 #echo -e "${GREEN}[3/3] Cleaning up Elasticsearch database...${NC}"
 #python3 utils/remove_data.py
+
+echo -e "${GREEN}Cleaning up Docker Compose services...${NC}"
+docker-compose down  # This will stop and remove containers, networks, and volumes
+
 
 # All tests passed
 echo -e "${GREEN}All tests passed successfully!${NC}"
