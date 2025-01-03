@@ -20,8 +20,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
-      - name: Set Docker Host environment variable
-        run: echo "DOCKER_HOST=tcp://czumpers.com:2375" >> $GITHUB_ENV
+      - name: Set up SSH key and Docker context
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          echo "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          docker context create czumpers --docker "host=ssh://czumpers@czumpers.com"
+          docker context use czumpers
 
       - name: Build dependencies using Docker Compose
         run: |
