@@ -100,5 +100,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# TODO active waiting for messages and stroing it in elasticsearch

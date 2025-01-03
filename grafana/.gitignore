@@ -1,2 +1,12 @@
 *.secret
 *.env
+*.log
+# IntelliJ
+.idea_modules
+*.iml
+*.iws
+*.ipr
+.idea/
+build/
+*/build/
+out/
