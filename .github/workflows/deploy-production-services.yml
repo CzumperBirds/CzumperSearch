@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: "The version for the Docker images (e.g., v1.0.0)"
+        description: "The version for the Docker images (e.g., 1.0.0)"
         required: true
-        default: "latest"
+        default: "1.0.0"
 
 jobs:
   deploy-frontend:
@@ -25,11 +25,15 @@ jobs:
       - name: Pull frontend image with "test" tag
         run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test
 
-      - name: Retag frontend image with "version" tag
-        run: docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+      - name: Retag frontend image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:prod
 
-      - name: Push frontend image with "version" tag
-        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+      - name: Push frontend image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:prod
 
   deploy-data-collection:
     runs-on: ubuntu-latest
@@ -47,11 +51,15 @@ jobs:
       - name: Pull data collection image with "test" tag
         run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test
 
-      - name: Retag data collection image with "version" tag
-        run: docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+      - name: Retag data collection image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:prod
 
-      - name: Push data collection image with "version" tag
-        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+      - name: Push data collection image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:prod
 
   deploy-data-processor:
     runs-on: ubuntu-latest
@@ -69,11 +77,15 @@ jobs:
       - name: Pull data processor image with "test" tag
         run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test
 
-      - name: Retag data processor image with "version" tag
-        run: docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+      - name: Retag data processor image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:prod
 
-      - name: Push data processor image with "version" tag
-        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+      - name: Push data processor image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-processor:prod
 
   deploy-data-storage:
     runs-on: ubuntu-latest
@@ -91,11 +103,15 @@ jobs:
       - name: Pull data storage image with "test" tag
         run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test
 
-      - name: Retag data storage image with "version" tag
-        run: docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+      - name: Retag data storage image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
 
-      - name: Push data storage image with "version" tag
-        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+      - name: Push data storage image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-storage:prod
 
   deploy-data-search:
     runs-on: ubuntu-latest
@@ -113,8 +129,12 @@ jobs:
       - name: Pull data search image with "test" tag
         run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test
 
-      - name: Retag data search image with "version" tag
-        run: docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+      - name: Retag data search image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:prod
 
-      - name: Push data search image with "version" tag
-        run: docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+      - name: Push data search image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-search:prod
