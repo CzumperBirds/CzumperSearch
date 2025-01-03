@@ -16,4 +16,4 @@ networks:
   elknet-test:
     external: true
   traefik-public:
-      external: true
+    external: true
