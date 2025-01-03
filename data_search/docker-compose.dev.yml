@@ -11,7 +11,7 @@ services:
       context: ../../CzumperSearch/data_search
       dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - '8081:8081'
     depends_on:
       - redis
     networks:
