@@ -18,7 +18,8 @@ jobs:
       - name: Set up Docker and Docker Compose
         run: |
           sudo apt-get update
-          sudo apt-get install -y docker-compose
+          sudo apt-get install -y docker-compose python3-pip
+          pip3 install paramiko
 
       - name: Set up SSH key and Docker context
         env:
