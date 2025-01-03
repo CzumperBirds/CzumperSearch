@@ -4,7 +4,9 @@ services:
       context: .
     container_name: test-container
     environment:
-      - BOOTSTRAP_SERVERS=kafka:9092
+      - BOOTSTRAP_SERVERS: kafka:9092
+      - ELASTIC_USERNAME: ${ELASTIC_USERNAME}
+      - ELASTIC_PASSWORD: ${ELASTIC_PASSWORD}
     networks:
       - kafka-test
       - elknet-test
