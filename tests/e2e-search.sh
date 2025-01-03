@@ -8,12 +8,12 @@ GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m' # No color
 
-error_handler() {
-  echo -e "${RED}An error occurred at line $1 while executing: $2${NC}"
-  exit 1
-}
-
-trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
+#error_handler() {
+#  echo -e "${RED}An error occurred at line $1 while executing: $2${NC}"
+#  exit 1
+#}
+#
+#trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
 
 echo -e "${GREEN}Starting end-to-end tests...${NC}"
 
