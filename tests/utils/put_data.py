@@ -7,15 +7,15 @@ import random
 # Function to create the DailyTriviaConsumed structure
 def create_daily_trivia_data():
     trivia_data = {
-        "id": f"trivia-{random.randint(1, 10000)}",
+        "id": f"trivia-test-12312df4141-190234",
         "title": "randomtestdata",
         "link": "https://example.com/trivia-link",
         "author": "Trivia Author",
-        "published": datetime.now().isoformat(),  # ISO 8601 format for current datetime
+        "published": "2025-01-03T10:15:30+01:00",
         "tags": [
             {"category": "Science"},
-            {"category": "History"},
-            {"category": "Pop Culture"}
+            {"another": "History"},
+            {"test": "Pop Culture"}
         ]
     }
     return trivia_data
