@@ -3,6 +3,7 @@ FROM python:3.9-slim as python-base
 RUN apt-get update && apt-get install -y \
     curl \
     docker.io \
+    dbus \
     && rm -rf /var/lib/apt/lists/*
 
 FROM cypress/included:12.7.0 as cypress-base
@@ -23,7 +24,11 @@ RUN apt-get update && apt-get install -y \
     libxtst6 \
     xauth \
     xvfb \
+    dbus \
     && rm -rf /var/lib/apt/lists/*
+
+# Configure D-Bus directory
+RUN mkdir -p /run/dbus && chmod 755 /run/dbus
 
 COPY utils/requirements.txt /app/utils/
 WORKDIR /app/utils
@@ -40,4 +45,4 @@ EXPOSE 8282
 
 VOLUME [ "/var/run/docker.sock:/var/run/docker.sock" ]
 
-CMD ["bash", "/app/e2e-search.sh"]
+CMD ["bash", "-c", "dbus-daemon --system && bash /app/e2e-search.sh"]
