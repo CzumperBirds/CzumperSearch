@@ -9,11 +9,11 @@ RED='\033[0;31m'
 NC='\033[0m' # No color
 
 error_handler() {
-  echo -e "${RED}An error occurred in the script execution. Exiting...${NC}"
+  echo -e "${RED}An error occurred at line $1 while executing: $2${NC}"
   exit 1
 }
 
-trap error_handler ERR
+trap 'error_handler ${LINENO} "$BASH_COMMAND"' ERR
 
 echo -e "${GREEN}Starting end-to-end tests...${NC}"
 
@@ -27,12 +27,12 @@ sleep 5
 # Step 2: Run frontend tests
 echo -e "${GREEN}[2/3] Running Cypress frontend tests...${NC}"
 cd frontend
-npx cypress run || exit 1 # Ensure explicit handling
+npx cypress run
 cd ..
 
 ## Step 3: Clean up Elasticsearch database
 #echo -e "${GREEN}[3/3] Cleaning up Elasticsearch database...${NC}"
-#python3 utils/remove_data.py || exit 1
+#python3 utils/remove_data.py
 
 # All tests passed
 echo -e "${GREEN}All tests passed successfully!${NC}"
