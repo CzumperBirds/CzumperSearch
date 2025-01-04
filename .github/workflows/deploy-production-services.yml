@@ -148,8 +148,8 @@ jobs:
 
       - name: Retag data storage image with "version" tag and "prod" tag
         run: |
-          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
           docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
 
       - name: Push data storage image with "version" and "prod" tags
         run: |
