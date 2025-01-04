@@ -148,13 +148,13 @@ jobs:
 
       - name: Retag data storage image with "version" tag and "prod" tag
         run: |
-          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
-          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker tag https://docker-ui.czumpers.com/cs-data-storage:test https://docker-ui.czumpers.com/cs-data-storage:${{ github.event.inputs.version }}
+          docker tag https://docker-ui.czumpers.com/cs-data-storage:test https://docker-ui.czumpers.com/cs-data-storage:prod
 
       - name: Push data storage image with "version" and "prod" tags
         run: |
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
-          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+          docker push https://docker-ui.czumpers.com/cs-data-storage:${{ github.event.inputs.version }}
+          docker push https://docker-ui.czumpers.com/cs-data-storage:prod
 
   deploy-data-search:
     runs-on: ubuntu-latest
