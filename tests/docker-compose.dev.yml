@@ -1,0 +1,16 @@
+services:
+  test-environment:
+    build:
+      context: .
+    container_name: test-container
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+    networks:
+      - kafka
+      - elknet
+
+networks:
+  kafka:
+    external: true
+  elknet:
+    external: true

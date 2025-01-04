@@ -1,0 +1,21 @@
+services:
+  test-environment:
+    build:
+      context: .
+    container_name: test-container
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - ELASTIC_USERNAME=${ELASTIC_USERNAME}
+      - ELASTIC_PASSWORD=${ELASTIC_PASSWORD}
+    networks:
+      - kafka-test
+      - elknet-test
+      - traefik-public
+
+networks:
+  kafka-test:
+    external: true
+  elknet-test:
+    external: true
+  traefik-public:
+    external: true
