@@ -46,7 +46,7 @@ jobs:
 
       - name: Stop and remove containers (cleanup)
         run: |
-          docker-compose down
+          docker-compose -f tests/docker-compose.test.yml down
 
   deploy-frontend:
     runs-on: ubuntu-latest
