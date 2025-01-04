@@ -153,7 +153,6 @@ jobs:
 
       - name: Push data storage image with "version" and "prod" tags
         run: |
-#          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
           docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-storage:prod
 
   deploy-data-search:
