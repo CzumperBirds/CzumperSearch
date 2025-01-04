@@ -104,7 +104,7 @@ jobs:
 
   deploy-data-processor:
     runs-on: ubuntu-latest
-#    needs: e2e-test
+    #    needs: e2e-test
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -126,8 +126,8 @@ jobs:
 
       - name: Push data processor image with "version" and "prod" tags
         run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:prod
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
-          docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-processor:prod
 
   deploy-data-storage:
     runs-on: ubuntu-latest
@@ -148,13 +148,13 @@ jobs:
 
       - name: Retag data storage image with "version" tag and "prod" tag
         run: |
-          docker tag https://docker-ui.czumpers.com/cs-data-storage:test https://docker-ui.czumpers.com/cs-data-storage:${{ github.event.inputs.version }}
-          docker tag https://docker-ui.czumpers.com/cs-data-storage:test https://docker-ui.czumpers.com/cs-data-storage:prod
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
 
       - name: Push data storage image with "version" and "prod" tags
         run: |
-          docker push https://docker-ui.czumpers.com/cs-data-storage:${{ github.event.inputs.version }}
-          docker push https://docker-ui.czumpers.com/cs-data-storage:prod
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
 
   deploy-data-search:
     runs-on: ubuntu-latest
@@ -181,4 +181,4 @@ jobs:
       - name: Push data search image with "version" and "prod" tags
         run: |
           docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
-          docker push ${{ secrets.DOCKER_REGISTRY.URL }}/cs-data-search:prod
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:prod
