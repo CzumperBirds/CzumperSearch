@@ -13,6 +13,8 @@ six = "^1.16"
 python-decouple = "^3.8"
 elasticsearch = "^8.16.0"
 kafka-python-ng = "^2.2.3"
+hvac = "^2.3.0"
+python-dotenv = "^1.0.1"
 
 
 
