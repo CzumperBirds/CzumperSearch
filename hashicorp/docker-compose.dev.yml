@@ -15,8 +15,11 @@ services:
         - IPC_LOCK
       networks:
         - kafka
+        - grafana-network
       command: vault server -config=./vault/config/vault.json
 
 networks:
   kafka:
+    external: true
+  grafana-network:
     external: true
