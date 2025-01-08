@@ -16,10 +16,6 @@ client = hvac.Client(url=VAULT_ADDR, token=VAULT_TOKEN)
 secret_data = client.secrets.kv.v1.read_secret(path=SECRET_PATH)["data"]["data"]
 
 
-
-# ELASTIC_USERNAME = secret_data[elastic_key]
-# ELASTIC_PASSWORD = secret_data[elastic_value]
-
 class SecretHandler:
     def __init__(self, secret_data):
         self.secret_data = secret_data
@@ -36,6 +32,6 @@ sh = SecretHandler(secret_data)
 ELASTIC_USERNAME = sh.get_secret(elastic_key)
 ELASTIC_PASSWORD = sh.get_secret(elastic_value)
 
-print(secret_data)
-print('username -> ' , ELASTIC_USERNAME)
-print('password -> ', ELASTIC_PASSWORD)
+# print(secret_data)
+# print('username -> ' , ELASTIC_USERNAME)
+# print('password -> ', ELASTIC_PASSWORD)

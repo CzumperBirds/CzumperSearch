@@ -2,10 +2,10 @@ from kafka import KafkaConsumer
 import json
 from elastic_handler import ElasticsearchHandler
 import os
+from config import ELASTIC_USERNAME, ELASTIC_PASSWORD
 
-
-elastic_username = os.getenv("ELASTIC_USERNAME")
-elastic_password = os.getenv("ELASTIC_PASSWORD")
+elastic_username = ELASTIC_USERNAME
+elastic_password = ELASTIC_PASSWORD
 
 
 class KafkaHandler:
@@ -79,6 +79,8 @@ def main():
     es_handler = ElasticsearchHandler(
         elasticsearch_url, elastic_username, elastic_password
     )
+    # print('DSS: username -> ',elastic_username)
+    # print('DSS: password -> ',elastic_password)
 
     for topic in topics:
         kafka_handler = KafkaHandler(topic, bootstrap_servers, group_id)

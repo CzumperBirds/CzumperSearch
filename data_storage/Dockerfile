@@ -34,4 +34,4 @@ ENV ELASTIC_VALUE=${ELASTIC_VALUE}
 
 ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
 
-CMD ["python", "src/config.py"]
+CMD ["python", "src/data_storage_service.py"]
