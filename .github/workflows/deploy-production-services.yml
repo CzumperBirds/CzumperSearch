@@ -1,0 +1,184 @@
+name: Deploy to Production
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "The version for the Docker images (e.g., 1.0.0)"
+        required: true
+        default: "1.0.0"
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker and Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose python3-pip
+          pip3 install paramiko
+
+      - name: Set up SSH key and Docker context
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+
+          # Dynamically add the remote host key to known_hosts
+          ssh-keyscan -H czumpers.com >> ~/.ssh/known_hosts
+
+          # Create Docker context
+          docker context create czumpers --docker "host=ssh://czumpers@czumpers.com"
+          docker context use czumpers
+
+      - name: Build dependencies using Docker Compose
+        run: |
+          docker-compose -f tests/docker-compose.test.yml build
+
+      - name: Run e2e tests
+        run: |
+          docker-compose -f tests/docker-compose.test.yml up
+
+      - name: Stop and remove containers (cleanup)
+        run: |
+          docker-compose -f tests/docker-compose.test.yml down
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Pull frontend image with "test" tag
+        run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test
+
+      - name: Retag frontend image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:prod
+
+      - name: Push frontend image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-frontend:prod
+
+  deploy-data-collection:
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Pull data collection image with "test" tag
+        run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test
+
+      - name: Retag data collection image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:prod
+
+      - name: Push data collection image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-collection:prod
+
+  deploy-data-processor:
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Pull data processor image with "test" tag
+        run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test
+
+      - name: Retag data processor image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:prod
+
+      - name: Push data processor image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:prod
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-processor:${{ github.event.inputs.version }}
+
+  deploy-data-storage:
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Pull data storage image with "test" tag
+        run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test
+
+      - name: Retag data storage image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
+
+      - name: Push data storage image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-storage:prod
+
+  deploy-data-search:
+    runs-on: ubuntu-latest
+    needs: e2e-test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Login to Custom Docker Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ secrets.DOCKER_REGISTRY_URL }}
+          username: ${{ secrets.DOCKER_REGISTRY_USERNAME }}
+          password: ${{ secrets.DOCKER_REGISTRY_PASSWORD }}
+
+      - name: Pull data search image with "test" tag
+        run: docker pull ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test
+
+      - name: Retag data search image with "version" tag and "prod" tag
+        run: |
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:test ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:prod
+
+      - name: Push data search image with "version" and "prod" tags
+        run: |
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:${{ github.event.inputs.version }}
+          docker push ${{ secrets.DOCKER_REGISTRY_URL }}/cs-data-search:prod
