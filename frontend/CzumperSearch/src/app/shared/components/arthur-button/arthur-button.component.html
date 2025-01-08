@@ -1,4 +1,4 @@
-<div class="buttonContainer" *ngIf="initialised">
+<div class="buttonContainer" *ngIf="initialised == true">
 Status DCS:
 <ng-container *ngIf="dcServiceStatusResponse && dcServiceStatusResponse.is_running; else elseTemplate">
   <b class="running">Running</b>

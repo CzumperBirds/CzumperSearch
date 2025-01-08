@@ -24,8 +24,7 @@ export class ArthurButtonComponent implements OnInit{
   }
 
 async  ngOnInit(): Promise<any> {
-    await this.fetchData()
-    this.initialised = true;
+  await this.fetchData()
   }
 
   ngOnDestroy(): void {
@@ -37,6 +36,8 @@ async  ngOnInit(): Promise<any> {
       console.log('Data:', this.dcServiceStatusResponse);
     } catch (error) {
       console.error('Error:', error);
+    } finally {
+      this.initialised = true
     }
   }
 
