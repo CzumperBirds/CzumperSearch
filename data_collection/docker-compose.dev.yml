@@ -19,9 +19,12 @@ services:
       - "8000:8000"
     networks:
       - kafka
+      - shared-network
     volumes:
       - .:/app
 
 networks:
   kafka:
+    external: true
+  shared-network:
     external: true
