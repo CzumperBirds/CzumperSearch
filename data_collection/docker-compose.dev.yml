@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     container_name: poetry-kafka-producer
     environment:
       BOOTSTRAP_SERVERS: kafka:9092

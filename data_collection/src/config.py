@@ -2,19 +2,22 @@
 
 import os
 from dotenv import load_dotenv
+import hvac
 
-# import hvac
+load_dotenv()
 
-# VAULT_ADDR = "http://vault:8200"
-# VAULT_TOKEN = "..."
-# SECRET_PATH = "kv/data/data_collection"
+VAULT_ADDR = os.getenv("VAULT_ADDR")
+VAULT_TOKEN = os.getenv("VAULT_TOKEN")
+SECRET_PATH = os.getenv("SECRET_PATH")
 
+print("VAULT_ADDR -> ", VAULT_ADDR)
+print("VAULT_TOKEN -> ", VAULT_TOKEN)
+print("SECRET_PATH -> ", SECRET_PATH)
 # client = hvac.Client(url=VAULT_ADDR, token=VAULT_TOKEN)
 # secret_data = client.secrets.kv.v1.read_secret(path=SECRET_PATH)["data"]["data"]
 
 # KAFKA_ADDRESS = secret_data["BOOTSTRAP_SERVERS"]
 
-load_dotenv()
 
 KAFKA_ADDRESS = os.environ["BOOTSTRAP_SERVERS"]
 
