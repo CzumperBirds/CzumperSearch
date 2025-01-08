@@ -18,8 +18,11 @@ Status DCS:
   }"
   (click)="switchStatus('stop')"
   >
+
 </div>
 <div class="buttonContainer" *ngIf="!initialised">
-Initialising DCS <br>
-  <span class="loader"></span>
+<input type="button" value='Initialise DCS Control Panel' class="initialiser"
+  (click)="fetchData()"
+  >
+  <span class="loader" *ngIf="initialising"></span>
 </div>

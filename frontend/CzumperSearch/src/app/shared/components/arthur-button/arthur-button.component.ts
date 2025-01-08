@@ -18,17 +18,25 @@ export class ArthurButtonComponent implements OnInit{
 
   dcsRunning : boolean = false;
   initialised : boolean = false;
-  changeInProgress : boolean = true;
+  initialising : boolean = false;
   constructor (private DcsApi : DcsApiService){
 
   }
 
 async  ngOnInit(): Promise<any> {
-  await this.fetchData()
   }
 
   ngOnDestroy(): void {
   }
+
+async initialiseDCS() {
+  try {
+    this.initialising = true;
+    await this.fetchData();
+  } finally {
+    this.initialising = false;
+  }
+}
 
   async fetchData() {
     try {
