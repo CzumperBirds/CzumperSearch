@@ -94,3 +94,19 @@
     transform: rotate(-360deg);
   }
 }
+
+
+.initialiser {
+  border: 4px ridge white;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: $mainBlue;
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  transition: 0.2s;
+  &:hover {
+    cursor: pointer;
+    background-color: $darkerBlue;
+  }
+}
