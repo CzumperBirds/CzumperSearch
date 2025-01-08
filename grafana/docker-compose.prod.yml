@@ -15,12 +15,15 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - grafana-network
+      # - grafana-network
+      - shared-network
     restart: unless-stopped
 
 volumes:
   grafana-storage:
 
 networks:
-  grafana-network:
-    driver: bridge
+  # grafana-network:
+  #   driver: bridge
+  shared-network:
+    external: true 

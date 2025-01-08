@@ -1,6 +1,7 @@
 services:
     vault:
       image: hashicorp/vault:latest
+      container_name: vault
       volumes:
         - ./vault/config:/vault/config
         - ./vault/policies:/vault/policies
@@ -14,12 +15,12 @@ services:
       cap_add:
         - IPC_LOCK
       networks:
-        - kafka
-        - grafana-network
+        # - kafka
+        - shared-network
       command: vault server -config=./vault/config/vault.json
 
 networks:
-  kafka:
-    external: true
-  grafana-network:
-    external: true
+  # kafka:
+  #   external: true
+  shared-network:
+    external: true 
