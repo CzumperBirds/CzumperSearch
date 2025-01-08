@@ -1,3 +1,3 @@
 export interface DcsApiResponse {
-  is_running: false
+  is_running: boolean
 }
