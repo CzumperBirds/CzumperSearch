@@ -25,6 +25,8 @@ COPY . .
 
 ENV PYTHONUNBUFFERED=1
 
-#ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
+ENV VAULT_TOKEN=${VAULT_TOKEN}
 
-CMD ["python", "src/data_storage_service.py"]
+ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
+
+CMD ["python", "src/main.py"]

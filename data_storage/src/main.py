@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-VAULT_ADDR = os.getenv("VAULT_ADDR")
+VAULT_ADDR = "http://vault:8200"
 VAULT_TOKEN = os.getenv("VAULT_TOKEN")
 SECRET_PATH = "data/grafana/config"
 

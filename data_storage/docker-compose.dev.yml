@@ -4,11 +4,14 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    env_file:
+      - .env
     container_name: data_storage_service
 
     networks:
       - kafka
       - elknet
+      - shared-network
     environment:
       KAFKA_BOOTSTRAP_SERVERS: kafka:9092
       ELASTICSEARCH_URL: http://elasticsearch:9200
@@ -19,3 +22,6 @@ networks:
     driver: local
   elknet:
     external: true
+  shared-network:
+    external: true
+
