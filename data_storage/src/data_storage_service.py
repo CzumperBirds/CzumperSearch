@@ -3,6 +3,7 @@ import json
 from elastic_handler import ElasticsearchHandler
 import os
 
+
 elastic_username = os.getenv("ELASTIC_USERNAME")
 elastic_password = os.getenv("ELASTIC_PASSWORD")
 
