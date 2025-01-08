@@ -31,9 +31,22 @@ export class SearchingService {
     return this.http.get<any>(endpoint);
   }
 
+  getByTags(body: any): Observable<any> {
+    const endpoint = `${this.baseUrl}/tags`;
+    return this.http.post<any>(endpoint, body);
+  }
+
   searchData(searchString : string){
     console.log('Searching for data')
     this.getSearchData(searchString).subscribe({
+      next: (response) =>  this.foundData.next(response),
+      error: (error) => console.error('GET Error:', error),
+    });
+  }
+
+  searchDataByTags(tag : string){
+    console.log('Searching for data')
+    this.getByTags([tag]).subscribe({
       next: (response) =>  this.foundData.next(response),
       error: (error) => console.error('GET Error:', error),
     });

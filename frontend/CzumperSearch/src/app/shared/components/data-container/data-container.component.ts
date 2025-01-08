@@ -23,7 +23,7 @@ export class DataContainerComponent{
 
 
   async searchForData(searchString: string){
-    this.searchService.searchData(searchString)
+    this.searchService.searchDataByTags(searchString)
   }
 
 }
