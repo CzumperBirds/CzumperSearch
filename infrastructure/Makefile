@@ -1,9 +1,13 @@
-.PHONY: help_topic topic
+.PHONY: help_topic topic up kafka list_topics help_kafka
 
 
 create_topic 	= docker exec -it kafka kafka-topics --create --topic $(1) --bootstrap-server kafka:9092 --partitions 1 --replication-factor 1
 kafka_producer 	= docker exec -it kafka kafka-console-producer --broker-list kafka:9092 --topic $(1)
 
+DOCKER_COMPOSE_FILE=docker-compose.dev.yml
+
+up:
+	docker compose -f $(DOCKER_COMPOSE_FILE) up --build
 
 topic:
 	@$(call create_topic,$(t))
