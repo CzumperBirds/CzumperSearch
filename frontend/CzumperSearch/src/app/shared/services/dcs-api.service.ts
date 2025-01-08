@@ -9,25 +9,13 @@ import { DcsApiResponse } from '../interfaces/dcsApiResponse.model';
 export class DcsApiService {
   private baseUrl: string = 'https://api-test.czumpers.com/api/v1/data-collection';
 
-  private dscStatus : BehaviorSubject<DcsApiResponse> = new BehaviorSubject<DcsApiResponse>(this.getDCServiceStatus());
 
   constructor(private http: HttpClient) {}
-
-  bindDataSet(): Observable<DcsApiResponse> {
-      return this.dscStatus.asObservable();
-    }
 
   getDCServiceStatus() : any {
     const endpoint = `${this.baseUrl}/status`;
     console.log(endpoint)
-    let returnData
-    let responseData = this.http.get<any>(endpoint);
-    responseData.subscribe({
-      next: (response) =>  returnData = response,
-      error: (error) => console.error('GET Error:', error),
-    });
-    console.log(returnData)
-    return returnData
+    return this.http.get(endpoint);
   }
 
   postData(body: any): Observable<any> {
