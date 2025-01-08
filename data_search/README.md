@@ -6,7 +6,7 @@ Elasticsearch database with use of full-text searching and with Redis caching.
 
 ## Prerequisites
 - Java 17 or later
-- Maven 3.9.9 or later
+- Maven 4.0.0 or later
 - Docker and Docker Compose
 - running Elasticsearch database
 - running Redis cache
