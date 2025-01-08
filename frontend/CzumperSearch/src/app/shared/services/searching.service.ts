@@ -46,7 +46,7 @@ export class SearchingService {
 
   searchDataByTags(tag : string){
     console.log('Searching for data')
-    this.getByTags([tag]).subscribe({
+    this.getByTags([tag.toLowerCase()]).subscribe({
       next: (response) =>  this.foundData.next(response),
       error: (error) => console.error('GET Error:', error),
     });
