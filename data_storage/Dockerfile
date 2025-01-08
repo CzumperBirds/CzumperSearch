@@ -25,8 +25,12 @@ COPY . .
 
 ENV PYTHONUNBUFFERED=1
 
+#Envs
 ENV VAULT_TOKEN=${VAULT_TOKEN}
+ENV VAULT_ADDR=${VAULT_ADDR}
+ENV SECRET_PATH=${SECRET_PATH}
+
 
 ENTRYPOINT ["/app/wait-for-elasticsearch.sh"]
 
-CMD ["python", "src/main.py"]
+CMD ["python", "src/config.py"]
