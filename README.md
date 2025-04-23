@@ -5,7 +5,7 @@ CzumperSearch is a microservices-based application designed to collect, process,
 ## Authors
 - Oliwier Szypczyn
 - Artur Kempiński
-- Mateusz Matkiewiszcz
+- Mateusz Matukiewicz
 - Kacper Multan
 - Jakub Kryczka
 
